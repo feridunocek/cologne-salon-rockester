@@ -1,0 +1,1308 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cologne Salon Rockester – Rock trifft die goldene Ära</title>
+    <meta name="description" content="Cologne Salon Rockester – Die Kölner Rockband, die Lieder aus den 20er bis 50er Jahren mit modernem Rock neu interpretiert.">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+    <script src="https://unpkg.com/lenis@1/dist/lenis.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        :root {
+            --bg: #0d0a08;
+            --card: #1c1610;
+            --card-hover: #241e16;
+            --text: #f0e8d8;
+            --text-muted: #9a8e7e;
+            --accent: #c9a84c;
+            --accent-hover: #e0c060;
+            --border: rgba(201, 168, 76, 0.15);
+            --font-display: 'Bebas Neue', sans-serif;
+            --font-body: 'Libre Baskerville', Georgia, serif;
+            --section-padding: clamp(4rem, 8vw, 10rem);
+            --container-max: 1200px;
+        }
+
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: auto; }
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: var(--font-body);
+            font-size: clamp(0.95rem, 1.1vw, 1.1rem);
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+
+        .container { max-width: var(--container-max); margin: 0 auto; padding: 0 2rem; }
+
+        h1, h2, h3, h4 {
+            font-family: var(--font-display);
+            line-height: 1.05;
+            letter-spacing: 0.04em;
+        }
+        h1 { font-size: clamp(3rem, 7vw, 7rem); font-weight: 400; }
+        h2 { font-size: clamp(2.5rem, 5vw, 5rem); font-weight: 400; }
+        h3 { font-size: clamp(1.5rem, 2.5vw, 2.2rem); font-weight: 400; }
+
+        .reveal { opacity: 0; transform: translateY(60px); }
+        .stagger-parent > * { opacity: 0; transform: translateY(40px); }
+
+        /* ─── Navbar ─────────────────────────────────────────────────── */
+        nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 1000;
+            padding: 0.8rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: padding 0.4s, background 0.4s, backdrop-filter 0.4s;
+        }
+        nav.scrolled {
+            padding: 0.6rem 2rem;
+            background: rgba(13, 10, 8, 0.92);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .nav-logo { text-decoration: none; display: flex; align-items: center; }
+        .nav-logo img {
+            height: 64px;
+            width: auto;
+            filter: brightness(0.9);
+            transition: filter 0.3s;
+        }
+        .nav-logo:hover img { filter: brightness(1.1); }
+
+        .nav-links { display: flex; gap: 2rem; list-style: none; }
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.82rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            font-family: var(--font-display);
+            transition: color 0.3s;
+            position: relative;
+        }
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px; left: 0;
+            width: 0; height: 1px;
+            background: var(--accent);
+            transition: width 0.3s;
+        }
+        .nav-links a:hover { color: var(--accent); }
+        .nav-links a:hover::after { width: 100%; }
+
+        .nav-cta {
+            background: transparent;
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            padding: 0.55rem 1.3rem;
+            font-family: var(--font-display);
+            font-size: 0.88rem;
+            letter-spacing: 0.12em;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background 0.3s, color 0.3s;
+        }
+        .nav-cta:hover { background: var(--accent); color: var(--bg); }
+
+        .nav-hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+        .nav-hamburger span { width: 26px; height: 2px; background: var(--text); display: block; }
+
+        /* ─── Texture macro ─────────────────────────────────────────── */
+        .has-texture::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: url('https://cologne-salon-rockester.de/media/yootheme/cache/b1/bg_rau3-b1c4eecd.webp') center / cover no-repeat;
+            opacity: 0.17;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* ─── Hero ───────────────────────────────────────────────────── */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: flex-end;
+            padding-bottom: clamp(4rem, 8vw, 8rem);
+            background: url('https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=1920&q=80') center 30% / cover no-repeat;
+            overflow: hidden;
+        }
+        /* Photo gradient */
+        .hero::before {
+            content: '';
+            position: absolute; inset: 0;
+            background: linear-gradient(
+                to bottom,
+                rgba(13,10,8,0.55) 0%,
+                rgba(13,10,8,0.1) 35%,
+                rgba(13,10,8,0.45) 65%,
+                rgba(13,10,8,1) 100%
+            );
+            z-index: 1;
+        }
+        /* Texture over hero image */
+        .hero-tex {
+            position: absolute; inset: 0;
+            background: var(--texture) repeat;
+            background-size: 600px auto;
+            opacity: 0.1;
+            mix-blend-mode: overlay;
+            z-index: 2;
+            pointer-events: none;
+        }
+        .hero-content {
+            position: relative;
+            z-index: 3;
+            width: 100%;
+        }
+        .hero-eyebrow {
+            display: inline-block;
+            font-family: var(--font-display);
+            font-size: 0.85rem;
+            letter-spacing: 0.35em;
+            color: var(--accent);
+            border: 1px solid var(--border);
+            padding: 0.4rem 1rem;
+            margin-bottom: 1.5rem;
+        }
+        .hero h1 {
+            color: var(--text);
+            margin-bottom: 1.5rem;
+            max-width: 14ch;
+            text-shadow: 0 4px 40px rgba(0,0,0,0.8);
+        }
+        .hero h1 em { font-style: normal; color: var(--accent); display: block; }
+        .hero-sub {
+            font-style: italic;
+            color: var(--text-muted);
+            font-size: clamp(1rem, 1.5vw, 1.2rem);
+            max-width: 50ch;
+            margin-bottom: 3rem;
+        }
+        .hero-actions { display: flex; gap: 1rem; align-items: center; flex-wrap: wrap; }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.9rem 2rem;
+            font-family: var(--font-display);
+            font-size: 1rem;
+            letter-spacing: 0.12em;
+            text-decoration: none;
+            cursor: pointer;
+            border: none;
+            transition: transform 0.3s, box-shadow 0.3s, background 0.3s;
+        }
+        .btn-primary { background: var(--accent); color: var(--bg); }
+        .btn-primary:hover { background: var(--accent-hover); transform: translateY(-2px); box-shadow: 0 8px 30px rgba(201,168,76,0.3); }
+        .btn-ghost { background: transparent; color: var(--text); border: 1px solid rgba(240,232,216,0.2); }
+        .btn-ghost:hover { border-color: var(--text); transform: translateY(-2px); }
+
+        .hero-scroll {
+            position: absolute;
+            bottom: 2rem; right: 2rem;
+            z-index: 3;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-muted);
+            font-size: 0.7rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+        }
+        .hero-scroll-line {
+            width: 1px; height: 60px;
+            background: linear-gradient(to bottom, var(--accent), transparent);
+            animation: scrollLine 2s ease-in-out infinite;
+        }
+        @keyframes scrollLine { 0%, 100% { opacity: 0.3; } 50% { opacity: 1; } }
+
+        /* ─── Section label ──────────────────────────────────────────── */
+        section { padding: var(--section-padding) 0; }
+
+        .section-label {
+            font-family: var(--font-display);
+            font-size: 0.8rem;
+            letter-spacing: 0.35em;
+            color: var(--accent);
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        .section-label::before {
+            content: '';
+            width: 40px; height: 1px;
+            background: var(--accent);
+        }
+
+        /* ─── Über Uns ───────────────────────────────────────────────── */
+        .about { background: var(--bg); overflow: hidden; }
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6rem;
+            align-items: center;
+        }
+        .about-image-wrap {
+            position: relative;
+        }
+        .about-image-wrap img.main-photo {
+            width: 100%; height: auto;
+            display: block;
+        }
+        .about-image-wrap::after {
+            content: '';
+            position: absolute; inset: 0;
+            border: 1px solid var(--border);
+        }
+        .about-frame {
+            position: absolute;
+            bottom: -1rem; right: -1rem;
+            width: 80%; height: 80%;
+            border: 1px solid var(--accent);
+            z-index: -1;
+        }
+        .about-text .section-label { margin-bottom: 1.5rem; }
+        .about-text h2 { margin-bottom: 1.5rem; }
+        .about-text p { color: var(--text-muted); margin-bottom: 1.2rem; font-style: italic; }
+        .about-text p strong { color: var(--text); font-style: normal; }
+        .about-stats {
+            display: flex; gap: 3rem;
+            margin-top: 2.5rem; padding-top: 2.5rem;
+            border-top: 1px solid var(--border);
+        }
+        .stat-number { font-family: var(--font-display); font-size: 3.5rem; color: var(--accent); line-height: 1; }
+        .stat-label { font-size: 0.8rem; letter-spacing: 0.1em; color: var(--text-muted); text-transform: uppercase; margin-top: 0.3rem; }
+
+        /* ─── Repertoire ─────────────────────────────────────────────── */
+        .repertoire { background: var(--card); position: relative; overflow: hidden; }
+        .repertoire-ghost {
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            font-family: var(--font-display);
+            font-size: clamp(8rem, 20vw, 22rem);
+            color: rgba(201, 168, 76, 0.035);
+            white-space: nowrap;
+            pointer-events: none;
+            letter-spacing: 0.02em;
+            z-index: 0;
+        }
+        .repertoire-inner { position: relative; z-index: 1; }
+        .repertoire-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 4rem;
+        }
+        .repertoire-intro { max-width: 45ch; color: var(--text-muted); font-style: italic; }
+        .songs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 1px;
+            background: var(--border);
+            border: 1px solid var(--border);
+        }
+        .song-item {
+            background: var(--card);
+            padding: 1.8rem 2rem;
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            transition: background 0.3s;
+        }
+        .song-item:hover { background: var(--card-hover); }
+        .song-number { font-family: var(--font-display); font-size: 2.5rem; color: rgba(201,168,76,0.2); line-height: 1; min-width: 3ch; }
+        .song-title { font-style: italic; color: var(--text); font-size: 1rem; }
+        .song-era { font-size: 0.75rem; color: var(--accent); letter-spacing: 0.15em; text-transform: uppercase; margin-top: 0.2rem; }
+
+        .influences { margin-top: 4rem; padding-top: 4rem; border-top: 1px solid var(--border); }
+        .influences h3 { margin-bottom: 2rem; color: var(--text-muted); }
+        .influence-tags { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+        .tag {
+            padding: 0.5rem 1.2rem;
+            border: 1px solid var(--border);
+            font-family: var(--font-display);
+            font-size: 0.9rem;
+            letter-spacing: 0.1em;
+            color: var(--text-muted);
+            transition: border-color 0.3s, color 0.3s;
+        }
+        .tag:hover { border-color: var(--accent); color: var(--accent); }
+
+        /* ─── Hörproben ──────────────────────────────────────────────── */
+        .hoerproben { background: var(--bg); position: relative; overflow: hidden; }
+        .hoerproben-inner { position: relative; z-index: 1; }
+        .hoerproben-header { margin-bottom: 3rem; }
+        .hoerproben-header p { color: var(--text-muted); font-style: italic; max-width: 55ch; margin-top: 1rem; }
+
+        .track-list { display: flex; flex-direction: column; gap: 2px; }
+        .track {
+            background: var(--card);
+            border: 1px solid var(--border);
+            padding: 1.4rem 2rem;
+            display: grid;
+            grid-template-columns: 3rem 1fr auto auto;
+            align-items: center;
+            gap: 1.5rem;
+            transition: border-color 0.3s, background 0.3s;
+            cursor: pointer;
+        }
+        .track:hover,
+        .track.active { background: var(--card-hover); border-color: rgba(201, 168, 76, 0.35); }
+        .track.active .track-num { color: var(--accent); }
+
+        .track-num {
+            font-family: var(--font-display);
+            font-size: 1.6rem;
+            color: rgba(201,168,76,0.25);
+            line-height: 1;
+            transition: color 0.3s;
+        }
+        .track-info { min-width: 0; }
+        .track-title { font-style: italic; color: var(--text); font-size: 1.05rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .track-era { font-size: 0.72rem; letter-spacing: 0.15em; color: var(--accent); text-transform: uppercase; margin-top: 0.2rem; }
+
+        .track-progress {
+            flex: 1;
+            min-width: 120px;
+            max-width: 260px;
+        }
+        .progress-bar {
+            height: 2px;
+            background: rgba(201,168,76,0.15);
+            position: relative;
+            cursor: pointer;
+        }
+        .progress-fill {
+            height: 100%;
+            background: var(--accent);
+            width: 0%;
+            transition: width 0.1s linear;
+        }
+        .track-time {
+            font-family: var(--font-display);
+            font-size: 0.9rem;
+            letter-spacing: 0.08em;
+            color: var(--text-muted);
+            min-width: 4ch;
+            text-align: right;
+        }
+
+        .play-btn {
+            width: 40px; height: 40px;
+            border: 1px solid var(--border);
+            background: transparent;
+            color: var(--accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: background 0.3s, border-color 0.3s;
+            flex-shrink: 0;
+        }
+        .play-btn:hover,
+        .track.active .play-btn {
+            background: rgba(201, 168, 76, 0.12);
+            border-color: var(--accent);
+        }
+
+        /* waveform bars under progress */
+        .waveform {
+            display: flex;
+            align-items: flex-end;
+            gap: 2px;
+            height: 28px;
+            margin-bottom: 4px;
+        }
+        .waveform-bar {
+            width: 3px;
+            background: rgba(201, 168, 76, 0.18);
+            border-radius: 1px;
+            transition: background 0.3s;
+        }
+        .track.active .waveform-bar { background: rgba(201, 168, 76, 0.5); }
+        .track.active .waveform-bar.lit { background: var(--accent); }
+
+        /* ─── Besetzung ──────────────────────────────────────────────── */
+        .members { background: var(--card); position: relative; overflow: hidden; }
+        .members-inner { position: relative; z-index: 1; }
+        .members-header { margin-bottom: 4rem; }
+        .members-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+        .member-card {
+            background: var(--bg);
+            border: 1px solid var(--border);
+            overflow: hidden;
+            position: relative;
+            transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+        }
+        .member-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 2px;
+            background: var(--accent);
+            transform: scaleX(0);
+            transition: transform 0.4s;
+            z-index: 2;
+        }
+        .member-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+            border-color: rgba(201, 168, 76, 0.35);
+        }
+        .member-card:hover::before { transform: scaleX(1); }
+
+        .member-photo {
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            overflow: hidden;
+            position: relative;
+            background: var(--card);
+        }
+        .member-photo img {
+            width: 100%; height: 100%;
+            object-fit: cover;
+            object-position: top center;
+            display: block;
+            filter: grayscale(25%) contrast(1.05);
+            transition: filter 0.5s, transform 0.5s;
+        }
+        .member-card:hover .member-photo img {
+            filter: grayscale(0%) contrast(1.05);
+            transform: scale(1.04);
+        }
+        .member-photo-gradient {
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            height: 50%;
+            background: linear-gradient(to top, var(--bg), transparent);
+            z-index: 2;
+        }
+
+        .member-info {
+            padding: 1.2rem 1.4rem 1.5rem;
+        }
+        .member-name {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            letter-spacing: 0.05em;
+            color: var(--text);
+            margin-bottom: 0.2rem;
+        }
+        .member-role {
+            font-size: 0.75rem;
+            letter-spacing: 0.12em;
+            color: var(--accent);
+            text-transform: uppercase;
+        }
+
+        /* ─── Auftritte ──────────────────────────────────────────────── */
+        .performances { background: var(--bg); position: relative; overflow: hidden; }
+        .performances-content { position: relative; z-index: 1; }
+        .performances-header {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            margin-bottom: 5rem;
+        }
+        .performances-text p { color: var(--text-muted); font-style: italic; margin-top: 1rem; }
+        .venue-types { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+        .venue-type {
+            background: var(--card);
+            border: 1px solid var(--border);
+            padding: 1.5rem;
+            display: flex;
+            gap: 1rem;
+            align-items: flex-start;
+            transition: border-color 0.3s;
+        }
+        .venue-type:hover { border-color: rgba(201, 168, 76, 0.4); }
+        .venue-icon { color: var(--accent); flex-shrink: 0; margin-top: 2px; }
+        .venue-name { font-family: var(--font-display); font-size: 1.1rem; letter-spacing: 0.05em; color: var(--text); }
+        .venue-desc { font-size: 0.85rem; color: var(--text-muted); margin-top: 0.3rem; }
+
+        .booking-cta {
+            background: rgba(201, 168, 76, 0.07);
+            border: 1px solid var(--border);
+            padding: 3rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 2rem;
+        }
+        .booking-cta-text h3 { font-family: var(--font-display); font-size: 2rem; }
+        .booking-cta-text p { color: var(--text-muted); font-style: italic; margin-top: 0.5rem; }
+
+        /* ─── Kontakt ────────────────────────────────────────────────── */
+        .contact { background: var(--card); position: relative; overflow: hidden; }
+        .contact-inner { position: relative; z-index: 1; }
+        .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: start; }
+        .contact-left h2 { margin-bottom: 1.5rem; }
+        .contact-left > p { color: var(--text-muted); font-style: italic; margin-bottom: 3rem; }
+        .contact-cards { display: flex; flex-direction: column; gap: 1.5rem; }
+        .contact-card {
+            background: var(--bg);
+            border: 1px solid var(--border);
+            padding: 2rem;
+            display: flex;
+            gap: 1.5rem;
+            align-items: flex-start;
+            transition: border-color 0.3s;
+        }
+        .contact-card:hover { border-color: rgba(201, 168, 76, 0.4); }
+        .contact-card-icon {
+            width: 44px; height: 44px;
+            background: rgba(201, 168, 76, 0.08);
+            border: 1px solid var(--border);
+            display: flex; align-items: center; justify-content: center;
+            flex-shrink: 0; color: var(--accent);
+        }
+        .contact-card-label { font-size: 0.75rem; letter-spacing: 0.2em; color: var(--accent); text-transform: uppercase; margin-bottom: 0.4rem; }
+        .contact-card-name { font-family: var(--font-display); font-size: 1.3rem; letter-spacing: 0.05em; }
+        .contact-card-detail { color: var(--text-muted); font-style: italic; font-size: 0.9rem; margin-top: 0.3rem; }
+        .contact-card-detail a { color: var(--text-muted); text-decoration: none; transition: color 0.3s; }
+        .contact-card-detail a:hover { color: var(--accent); }
+
+        .social-section { margin-top: 3rem; padding-top: 3rem; border-top: 1px solid var(--border); }
+        .social-section h4 { font-family: var(--font-display); font-size: 1rem; letter-spacing: 0.15em; color: var(--text-muted); margin-bottom: 1.5rem; }
+        .social-links { display: flex; gap: 1rem; }
+        .social-link {
+            width: 48px; height: 48px;
+            border: 1px solid var(--border);
+            display: flex; align-items: center; justify-content: center;
+            color: var(--text-muted); text-decoration: none;
+            transition: border-color 0.3s, color 0.3s, background 0.3s;
+        }
+        .social-link:hover { border-color: var(--accent); color: var(--accent); background: rgba(201, 168, 76, 0.08); }
+
+        .contact-visual { position: relative; overflow: hidden; aspect-ratio: 3/4; }
+        .contact-visual img.main-photo { width: 100%; height: 110%; object-fit: cover; display: block; }
+        .contact-visual-overlay {
+            position: absolute; inset: 0; z-index: 2;
+            background: linear-gradient(to top, var(--card) 0%, transparent 40%);
+        }
+        .contact-visual-quote {
+            position: absolute; bottom: 2rem; left: 2rem; right: 2rem; z-index: 3;
+        }
+        .contact-visual-quote blockquote { font-size: clamp(1.1rem, 2vw, 1.35rem); font-style: italic; line-height: 1.5; }
+        .contact-visual-quote cite {
+            display: block; margin-top: 0.8rem;
+            font-size: 0.8rem; letter-spacing: 0.15em; color: var(--accent);
+            text-transform: uppercase; font-style: normal;
+        }
+
+        /* ─── Footer ─────────────────────────────────────────────────── */
+        footer { background: #0a0806; border-top: 1px solid var(--border); padding: 2.5rem 0; }
+        .footer-inner { display: flex; justify-content: space-between; align-items: center; gap: 2rem; flex-wrap: wrap; }
+        .footer-logo-wrap { display: flex; align-items: center; gap: 1.2rem; }
+        .footer-logo-wrap img { height: 56px; width: auto; opacity: 0.85; }
+        .footer-tagline { font-size: 0.8rem; color: var(--text-muted); font-style: italic; }
+        .footer-links { display: flex; gap: 2rem; list-style: none; }
+        .footer-links a { font-size: 0.78rem; letter-spacing: 0.12em; color: var(--text-muted); text-decoration: none; text-transform: uppercase; transition: color 0.3s; }
+        .footer-links a:hover { color: var(--accent); }
+        .footer-copy { font-size: 0.78rem; color: var(--text-muted); }
+
+        /* ─── Responsive ─────────────────────────────────────────────── */
+        @media (max-width: 960px) {
+            .about-grid, .contact-grid, .performances-header { grid-template-columns: 1fr; gap: 3rem; }
+            .about-image-wrap { aspect-ratio: 16/9; }
+            .contact-visual { display: none; }
+            .members-grid { grid-template-columns: repeat(2, 1fr); }
+            .nav-links, .nav-cta { display: none; }
+            .nav-hamburger { display: flex; }
+            .booking-cta { flex-direction: column; align-items: flex-start; }
+            .track { grid-template-columns: 2.5rem 1fr auto auto; }
+            .track-progress { display: none; }
+        }
+        @media (max-width: 600px) {
+            .members-grid { grid-template-columns: repeat(2, 1fr); }
+            .about-stats { gap: 1.5rem; }
+            .songs-grid { grid-template-columns: 1fr; }
+            .venue-types { grid-template-columns: 1fr; }
+            .footer-inner { flex-direction: column; align-items: flex-start; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ─── Navbar ────────────────────────────────────────────────────── -->
+    <nav id="navbar">
+        <a href="#" class="nav-logo">
+            <img src="https://cologne-salon-rockester.de/images/logos/Cologne-Salon-Rockester-logo.png" alt="Cologne Salon Rockester Logo">
+        </a>
+        <ul class="nav-links">
+            <li><a href="#about">Über uns</a></li>
+            <li><a href="#repertoire">Repertoire</a></li>
+            <li><a href="#hoerproben">Hörproben</a></li>
+            <li><a href="#members">Besetzung</a></li>
+            <li><a href="#performances">Auftritte</a></li>
+            <li><a href="#contact">Kontakt</a></li>
+        </ul>
+        <a href="#contact" class="nav-cta btn-magnetic">Booking anfragen</a>
+        <div class="nav-hamburger" id="hamburger">
+            <span></span><span></span><span></span>
+        </div>
+    </nav>
+
+    <!-- ─── Hero ──────────────────────────────────────────────────────── -->
+    <section class="hero" id="hero">
+        <div class="hero-tex"></div>
+        <div class="container hero-content">
+            <div class="hero-eyebrow">Köln · Rock · 1920er–1950er</div>
+            <h1>Rock trifft<br>die <em>goldene Ära.</em></h1>
+            <p class="hero-sub">
+                Klassiker aus den 20er bis 50er Jahren — neu gedacht, neu gespielt, neu erlebt.
+                Sechs Musiker. Über 200 Jahre Bühnenerfahrung.
+            </p>
+            <div class="hero-actions">
+                <a href="#contact" class="btn btn-primary btn-magnetic">
+                    <i data-lucide="mail" width="18" height="18"></i>
+                    Jetzt buchen
+                </a>
+                <a href="#hoerproben" class="btn btn-ghost btn-magnetic">
+                    <i data-lucide="play-circle" width="18" height="18"></i>
+                    Hörproben
+                </a>
+            </div>
+        </div>
+        <div class="hero-scroll">
+            <div class="hero-scroll-line"></div>
+            <span>Scroll</span>
+        </div>
+    </section>
+
+    <!-- ─── Über Uns ──────────────────────────────────────────────────── -->
+    <section class="about" id="about">
+        <div class="container">
+            <div class="about-grid">
+                <div class="about-image-wrap reveal">
+                    <img class="main-photo" src="https://cologne-salon-rockester.de/images/fotos/band/Band-alpha.png" alt="Cologne Salon Rockester – Bandfofo">
+                    <div class="about-frame"></div>
+                </div>
+                <div class="about-text">
+                    <div class="section-label">Über uns</div>
+                    <h2 class="reveal">Wir sind<br>Cologne<br>Salon Rockester.</h2>
+                    <p class="reveal">
+                        Was entsteht, wenn man die größten Standards der Goldenen Ära — von der Reeperbahn bis zum Rhein — durch den Verstärker jagt? <strong>Etwas vollkommen Einzigartiges.</strong>
+                    </p>
+                    <p class="reveal">
+                        Früher bekannt als Zeppelin-Salon-Rockestra, haben wir uns seit Herbst 2023 neu aufgestellt. Unsere Mission bleibt dieselbe: <strong>Klassiker aus den 1920er bis 1950er Jahren</strong> mit der Energie von Deep Purple, Led Zeppelin, Rolling Stones, ELO und Yes neu zu interpretieren.
+                    </p>
+                    <p class="reveal">
+                        Von kleinen Clubs über Theater bis hin zu Open-Air-Bühnen — wir spielen überall dort, wo Musik Geschichten erzählt.
+                    </p>
+                    <div class="about-stats stagger-parent">
+                        <div>
+                            <div class="stat-number">200+</div>
+                            <div class="stat-label">Jahre Bühnenerfahrung</div>
+                        </div>
+                        <div>
+                            <div class="stat-number">6</div>
+                            <div class="stat-label">Musiker</div>
+                        </div>
+                        <div>
+                            <div class="stat-number">30+</div>
+                            <div class="stat-label">Jahre Repertoire</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ─── Repertoire ────────────────────────────────────────────────── -->
+    <section class="repertoire has-texture" id="repertoire">
+        <div class="repertoire-ghost">REPERTOIRE</div>
+        <div class="repertoire-inner container">
+            <div class="repertoire-header reveal">
+                <div>
+                    <div class="section-label">Repertoire</div>
+                    <h2>Klassiker,<br>neu entfacht.</h2>
+                </div>
+                <p class="repertoire-intro">
+                    Unsere Setlist vereint die schönsten Lieder einer vergangenen Ära — gespielt mit der Wucht des modernen Rock. Kein Cover-Band-Klischee. Echte Interpretation.
+                </p>
+            </div>
+
+            <div class="songs-grid stagger-parent">
+                <div class="song-item">
+                    <div class="song-number">01</div>
+                    <div>
+                        <div class="song-title">Auf der Reeperbahn nachts um halb eins</div>
+                        <div class="song-era">1920er Original</div>
+                    </div>
+                </div>
+                <div class="song-item">
+                    <div class="song-number">02</div>
+                    <div>
+                        <div class="song-title">Heimweh nach Kölle</div>
+                        <div class="song-era">Kölner Klassiker</div>
+                    </div>
+                </div>
+                <div class="song-item">
+                    <div class="song-number">03</div>
+                    <div>
+                        <div class="song-title">Ich brech die Herzen der stolzesten Frau'n</div>
+                        <div class="song-era">1930er Original</div>
+                    </div>
+                </div>
+                <div class="song-item">
+                    <div class="song-number">04</div>
+                    <div>
+                        <div class="song-title">Bei mir bist du schön</div>
+                        <div class="song-era">1930er Standard</div>
+                    </div>
+                </div>
+                <div class="song-item">
+                    <div class="song-number">05</div>
+                    <div>
+                        <div class="song-title">Kein Schwein ruft mich an</div>
+                        <div class="song-era">1950er Classic</div>
+                    </div>
+                </div>
+                <div class="song-item">
+                    <div class="song-number">+</div>
+                    <div>
+                        <div class="song-title">Viele weitere Klassiker</div>
+                        <div class="song-era">Auf Anfrage</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="influences reveal">
+                <h3>Unsere Rock-Einflüsse</h3>
+                <div class="influence-tags stagger-parent">
+                    <span class="tag">Deep Purple</span>
+                    <span class="tag">Led Zeppelin</span>
+                    <span class="tag">Rolling Stones</span>
+                    <span class="tag">ELO</span>
+                    <span class="tag">Yes</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ─── Hörproben ─────────────────────────────────────────────────── -->
+    <section class="hoerproben has-texture" id="hoerproben">
+        <div class="hoerproben-inner container">
+            <div class="hoerproben-header reveal">
+                <div class="section-label">Hörproben</div>
+                <h2>Hören Sie<br>selbst rein.</h2>
+                <p>Fünf Kostproben aus unserem Repertoire — direkt im Browser, keine Installation nötig.</p>
+            </div>
+
+            <div class="track-list stagger-parent" id="trackList">
+
+                <div class="track" data-src="https://cologne-salon-rockester.de/images/audio/Reeperbahn_Master_Cla.mp3">
+                    <div class="track-num">01</div>
+                    <div class="track-info">
+                        <div class="track-title">Auf der Reeperbahn nachts um halb eins</div>
+                        <div class="track-era">1920er Original</div>
+                    </div>
+                    <div class="track-progress">
+                        <div class="waveform" data-bars="40"></div>
+                        <div class="progress-bar"><div class="progress-fill"></div></div>
+                    </div>
+                    <div class="track-time">—:——</div>
+                    <button class="play-btn" aria-label="Play">
+                        <i data-lucide="play" width="16" height="16"></i>
+                    </button>
+                </div>
+
+                <div class="track" data-src="https://cologne-salon-rockester.de/images/audio/Heimweh_Master_Cla.mp3">
+                    <div class="track-num">02</div>
+                    <div class="track-info">
+                        <div class="track-title">Heimweh nach Kölle</div>
+                        <div class="track-era">Kölner Klassiker</div>
+                    </div>
+                    <div class="track-progress">
+                        <div class="waveform" data-bars="40"></div>
+                        <div class="progress-bar"><div class="progress-fill"></div></div>
+                    </div>
+                    <div class="track-time">—:——</div>
+                    <button class="play-btn" aria-label="Play">
+                        <i data-lucide="play" width="16" height="16"></i>
+                    </button>
+                </div>
+
+                <div class="track" data-src="https://cologne-salon-rockester.de/images/audio/Ich%20brech_rev_Cla.mp3">
+                    <div class="track-num">03</div>
+                    <div class="track-info">
+                        <div class="track-title">Ich brech die Herzen der stolzesten Frau'n</div>
+                        <div class="track-era">1930er Original</div>
+                    </div>
+                    <div class="track-progress">
+                        <div class="waveform" data-bars="40"></div>
+                        <div class="progress-bar"><div class="progress-fill"></div></div>
+                    </div>
+                    <div class="track-time">—:——</div>
+                    <button class="play-btn" aria-label="Play">
+                        <i data-lucide="play" width="16" height="16"></i>
+                    </button>
+                </div>
+
+                <div class="track" data-src="https://cologne-salon-rockester.de/images/audio/Bei%20mir_rev_Cla.mp3">
+                    <div class="track-num">04</div>
+                    <div class="track-info">
+                        <div class="track-title">Bei mir bist du schön</div>
+                        <div class="track-era">1930er Standard</div>
+                    </div>
+                    <div class="track-progress">
+                        <div class="waveform" data-bars="40"></div>
+                        <div class="progress-bar"><div class="progress-fill"></div></div>
+                    </div>
+                    <div class="track-time">—:——</div>
+                    <button class="play-btn" aria-label="Play">
+                        <i data-lucide="play" width="16" height="16"></i>
+                    </button>
+                </div>
+
+                <div class="track" data-src="https://cologne-salon-rockester.de/images/audio/Kein%20Schwein_rev_Cla.mp3">
+                    <div class="track-num">05</div>
+                    <div class="track-info">
+                        <div class="track-title">Kein Schwein ruft mich an</div>
+                        <div class="track-era">1950er Classic</div>
+                    </div>
+                    <div class="track-progress">
+                        <div class="waveform" data-bars="40"></div>
+                        <div class="progress-bar"><div class="progress-fill"></div></div>
+                    </div>
+                    <div class="track-time">—:——</div>
+                    <button class="play-btn" aria-label="Play">
+                        <i data-lucide="play" width="16" height="16"></i>
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ─── Besetzung ─────────────────────────────────────────────────── -->
+    <section class="members has-texture" id="members">
+        <div class="members-inner container">
+            <div class="members-header reveal">
+                <div class="section-label">Besetzung</div>
+                <h2>Sechs Musiker.<br>Eine Stimme.</h2>
+            </div>
+            <div class="members-grid stagger-parent">
+
+                <div class="member-card">
+                    <div class="member-photo">
+                        <img src="https://cologne-salon-rockester.de/images/fotos/band/Detlef-Lauenstein600.png" alt="Detlef Lauenstein">
+                        <div class="member-photo-gradient"></div>
+                    </div>
+                    <div class="member-info">
+                        <div class="member-name">Detlef Lauenstein</div>
+                        <div class="member-role">Lead Vocals</div>
+                    </div>
+                </div>
+
+                <div class="member-card">
+                    <div class="member-photo">
+                        <img src="https://cologne-salon-rockester.de/media/yootheme/cache/70/Rainer-Thielen600-705d9dc2.png" alt="Rainer Thielen">
+                        <div class="member-photo-gradient"></div>
+                    </div>
+                    <div class="member-info">
+                        <div class="member-name">Rainer Thielen</div>
+                        <div class="member-role">Gitarre</div>
+                    </div>
+                </div>
+
+                <div class="member-card">
+                    <div class="member-photo">
+                        <img src="https://cologne-salon-rockester.de/images/fotos/band/Claudius-Krause600.png" alt="Claudius Krause">
+                        <div class="member-photo-gradient"></div>
+                    </div>
+                    <div class="member-info">
+                        <div class="member-name">Claudius Krause</div>
+                        <div class="member-role">Piano · Hammond · Arrangements</div>
+                    </div>
+                </div>
+
+                <div class="member-card">
+                    <div class="member-photo">
+                        <img src="https://cologne-salon-rockester.de/images/fotos/band/Dieter-Dreesbach600.png" alt="Dieter Dreesbach">
+                        <div class="member-photo-gradient"></div>
+                    </div>
+                    <div class="member-info">
+                        <div class="member-name">Dieter Dreesbach</div>
+                        <div class="member-role">Keys · Gesang · Akkordeon · Posaune</div>
+                    </div>
+                </div>
+
+                <div class="member-card">
+                    <div class="member-photo">
+                        <img src="https://cologne-salon-rockester.de/media/yootheme/cache/5b/Freddy-Maassen600--5b34cec1.png" alt="Freddy Maassen">
+                        <div class="member-photo-gradient"></div>
+                    </div>
+                    <div class="member-info">
+                        <div class="member-name">Freddy Maassen</div>
+                        <div class="member-role">Bass · Gesang</div>
+                    </div>
+                </div>
+
+                <div class="member-card">
+                    <div class="member-photo">
+                        <img src="https://cologne-salon-rockester.de/media/yootheme/cache/80/Michael-Landen600-80319951.png" alt="Michael Landen">
+                        <div class="member-photo-gradient"></div>
+                    </div>
+                    <div class="member-info">
+                        <div class="member-name">Michael Landen</div>
+                        <div class="member-role">Schlagzeug</div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ─── Auftritte ─────────────────────────────────────────────────── -->
+    <section class="performances" id="performances">
+        <div class="container performances-content">
+            <div class="performances-header">
+                <div class="performances-text">
+                    <div class="section-label reveal">Auftritte</div>
+                    <h2 class="reveal">Überall dort,<br>wo Musik lebt.</h2>
+                    <p class="reveal">
+                        Von intimen Clubabenden bis zur großen Open-Air-Bühne — wir bringen die goldene Ära mit voller Rock-Power zu Ihrem Event.
+                    </p>
+                </div>
+                <div class="venue-types stagger-parent">
+                    <div class="venue-type">
+                        <span class="venue-icon"><i data-lucide="building-2" width="20" height="20"></i></span>
+                        <div>
+                            <div class="venue-name">Stadtfeste</div>
+                            <div class="venue-desc">Open-Air mit Atmosphäre</div>
+                        </div>
+                    </div>
+                    <div class="venue-type">
+                        <span class="venue-icon"><i data-lucide="music-4" width="20" height="20"></i></span>
+                        <div>
+                            <div class="venue-name">Theater & Clubs</div>
+                            <div class="venue-desc">Intime Konzertabende</div>
+                        </div>
+                    </div>
+                    <div class="venue-type">
+                        <span class="venue-icon"><i data-lucide="briefcase" width="20" height="20"></i></span>
+                        <div>
+                            <div class="venue-name">Firmenevents</div>
+                            <div class="venue-desc">Unvergessliche Firmenfeiern</div>
+                        </div>
+                    </div>
+                    <div class="venue-type">
+                        <span class="venue-icon"><i data-lucide="sparkles" width="20" height="20"></i></span>
+                        <div>
+                            <div class="venue-name">Musikfestivals</div>
+                            <div class="venue-desc">Festivals & Kulturveranstaltungen</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="booking-cta reveal">
+                <div class="booking-cta-text">
+                    <h3>Ihr nächstes Event. Unser nächster Auftritt.</h3>
+                    <p>Sprechen Sie uns an — wir freuen uns über jede Anfrage, groß oder klein.</p>
+                </div>
+                <a href="#contact" class="btn btn-primary btn-magnetic">
+                    <i data-lucide="calendar" width="18" height="18"></i>
+                    Termin anfragen
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ─── Kontakt ───────────────────────────────────────────────────── -->
+    <section class="contact" id="contact">
+        <div class="contact-inner container">
+            <div class="contact-grid">
+                <div class="contact-left">
+                    <div class="section-label reveal">Kontakt</div>
+                    <h2 class="reveal">Kommen Sie<br>auf uns zu.</h2>
+                    <p class="reveal">Für Booking-Anfragen und technische Fragen stehen wir Ihnen gerne zur Verfügung.</p>
+
+                    <div class="contact-cards stagger-parent">
+                        <div class="contact-card">
+                            <div class="contact-card-icon">
+                                <i data-lucide="phone-call" width="18" height="18"></i>
+                            </div>
+                            <div>
+                                <div class="contact-card-label">Booking</div>
+                                <div class="contact-card-name">Gerd Schank</div>
+                                <div class="contact-card-detail"><a href="tel:015563961758">0155 / 639 617 58</a></div>
+                            </div>
+                        </div>
+                        <div class="contact-card">
+                            <div class="contact-card-icon">
+                                <i data-lucide="settings-2" width="18" height="18"></i>
+                            </div>
+                            <div>
+                                <div class="contact-card-label">Technik</div>
+                                <div class="contact-card-name">Dieter Dreesbach</div>
+                                <div class="contact-card-detail"><a href="tel:016359998160163">0163 / 59 99 816</a></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="social-section reveal">
+                        <h4>Folgen Sie uns</h4>
+                        <div class="social-links">
+                            <a href="https://www.facebook.com/Zeppelin-Salon-Rockestra-101133052630202" target="_blank" rel="noopener" class="social-link" aria-label="Facebook">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-visual reveal">
+                    <img class="main-photo parallax" src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=800&q=80" alt="Live Auftritt">
+                    <div class="contact-visual-overlay"></div>
+                    <div class="contact-visual-quote">
+                        <blockquote>"Über 200 Jahre gemeinsame Bühnenerfahrung — in jedem Ton spürbar."</blockquote>
+                        <cite>Cologne Salon Rockester</cite>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ─── Footer ───────────────────────────────────────────────────── -->
+    <footer>
+        <div class="container">
+            <div class="footer-inner">
+                <div class="footer-logo-wrap">
+                    <img src="https://cologne-salon-rockester.de/images/logos/Cologne-Salon-Rockester-logo.png" alt="Cologne Salon Rockester">
+                    <div class="footer-tagline">Rock trifft die goldene Ära · Köln</div>
+                </div>
+                <ul class="footer-links">
+                    <li><a href="#about">Über uns</a></li>
+                    <li><a href="#repertoire">Repertoire</a></li>
+                    <li><a href="#hoerproben">Hörproben</a></li>
+                    <li><a href="#contact">Kontakt</a></li>
+                    <li><a href="https://cologne-salon-rockester.de/impressum" target="_blank">Impressum</a></li>
+                    <li><a href="https://cologne-salon-rockester.de/datenschutzerklaerung" target="_blank">Datenschutz</a></li>
+                </ul>
+                <div class="footer-copy">© <span id="year"></span> Cologne Salon Rockester</div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // ─── Lenis ────────────────────────────────────────────────────
+        const lenis = new Lenis({ lerp: 0.1, smoothWheel: true });
+        lenis.on('scroll', ScrollTrigger.update);
+        gsap.ticker.add((time) => lenis.raf(time * 1000));
+        gsap.ticker.lagSmoothing(0);
+        gsap.registerPlugin(ScrollTrigger);
+
+        // ─── Lucide ───────────────────────────────────────────────────
+        try { lucide.createIcons(); } catch(e) {}
+
+        // ─── Waveform bars ────────────────────────────────────────────
+        document.querySelectorAll('.waveform').forEach(wf => {
+            const count = parseInt(wf.dataset.bars) || 40;
+            // Random heights seeded by position for visual variety
+            for (let i = 0; i < count; i++) {
+                const bar = document.createElement('div');
+                bar.className = 'waveform-bar';
+                const h = 4 + Math.abs(Math.sin(i * 0.7 + i * 0.3) * 22) + Math.random() * 4;
+                bar.style.height = h + 'px';
+                wf.appendChild(bar);
+            }
+        });
+
+        // ─── Audio Player ─────────────────────────────────────────────
+        let currentAudio = null;
+        let currentTrackEl = null;
+        let animFrame = null;
+
+        function fmtTime(s) {
+            if (!isFinite(s)) return '—:——';
+            const m = Math.floor(s / 60);
+            const sec = Math.floor(s % 60);
+            return m + ':' + String(sec).padStart(2, '0');
+        }
+
+        function animateWave(trackEl) {
+            const bars = trackEl.querySelectorAll('.waveform-bar');
+            let t = 0;
+            function step() {
+                t += 0.08;
+                bars.forEach((bar, i) => {
+                    const wave = Math.abs(Math.sin(t + i * 0.35));
+                    bar.classList.toggle('lit', wave > 0.5);
+                });
+                animFrame = requestAnimationFrame(step);
+            }
+            step();
+        }
+
+        function stopWave() {
+            if (animFrame) { cancelAnimationFrame(animFrame); animFrame = null; }
+            document.querySelectorAll('.waveform-bar').forEach(b => b.classList.remove('lit'));
+        }
+
+        function setPlayIcon(trackEl, playing) {
+            const btn = trackEl.querySelector('.play-btn');
+            btn.innerHTML = playing
+                ? '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>'
+                : '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>';
+        }
+
+        document.querySelectorAll('.track').forEach(trackEl => {
+            const src = trackEl.dataset.src;
+            const fill = trackEl.querySelector('.progress-fill');
+            const timeEl = trackEl.querySelector('.track-time');
+            const progressBar = trackEl.querySelector('.progress-bar');
+
+            // Click on track row or play btn
+            trackEl.addEventListener('click', (e) => {
+                if (e.target.closest('.progress-bar')) return; // handled separately
+
+                if (currentTrackEl === trackEl && currentAudio && !currentAudio.paused) {
+                    // Pause current
+                    currentAudio.pause();
+                    setPlayIcon(trackEl, false);
+                    trackEl.classList.remove('active');
+                    stopWave();
+                    return;
+                }
+
+                // Stop previous
+                if (currentAudio) {
+                    currentAudio.pause();
+                    if (currentTrackEl) {
+                        setPlayIcon(currentTrackEl, false);
+                        currentTrackEl.classList.remove('active');
+                    }
+                    stopWave();
+                }
+
+                // Play new
+                const audio = new Audio(src);
+                currentAudio = audio;
+                currentTrackEl = trackEl;
+                trackEl.classList.add('active');
+                setPlayIcon(trackEl, true);
+                animateWave(trackEl);
+
+                audio.play().catch(() => {});
+
+                audio.addEventListener('timeupdate', () => {
+                    if (!audio.duration) return;
+                    const pct = (audio.currentTime / audio.duration) * 100;
+                    if (fill) fill.style.width = pct + '%';
+                    if (timeEl) timeEl.textContent = fmtTime(audio.currentTime) + ' / ' + fmtTime(audio.duration);
+                });
+
+                audio.addEventListener('ended', () => {
+                    setPlayIcon(trackEl, false);
+                    trackEl.classList.remove('active');
+                    if (fill) fill.style.width = '0%';
+                    if (timeEl) timeEl.textContent = '—:——';
+                    stopWave();
+                    currentAudio = null;
+                    currentTrackEl = null;
+                });
+            });
+
+            // Seek on progress bar
+            if (progressBar) {
+                progressBar.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    if (currentAudio && currentTrackEl === trackEl && currentAudio.duration) {
+                        const rect = progressBar.getBoundingClientRect();
+                        const ratio = (e.clientX - rect.left) / rect.width;
+                        currentAudio.currentTime = ratio * currentAudio.duration;
+                    }
+                });
+            }
+        });
+
+        // ─── Reveal on scroll ─────────────────────────────────────────
+        gsap.utils.toArray('.reveal').forEach(el => {
+            gsap.to(el, {
+                opacity: 1, y: 0, duration: 0.9, ease: 'power2.out',
+                scrollTrigger: { trigger: el, start: 'top 88%', toggleActions: 'play none none none' }
+            });
+        });
+
+        gsap.utils.toArray('.stagger-parent').forEach(parent => {
+            gsap.to(parent.children, {
+                opacity: 1, y: 0, duration: 0.7, ease: 'power2.out', stagger: 0.1,
+                scrollTrigger: { trigger: parent, start: 'top 82%' }
+            });
+        });
+
+        // ─── Parallax ─────────────────────────────────────────────────
+        gsap.utils.toArray('.parallax').forEach(img => {
+            gsap.to(img, {
+                yPercent: -15,
+                scrollTrigger: { trigger: img, start: 'top bottom', end: 'bottom top', scrub: true }
+            });
+        });
+
+        // ─── Magnetic buttons ─────────────────────────────────────────
+        document.querySelectorAll('.btn-magnetic').forEach(btn => {
+            btn.addEventListener('mousemove', (e) => {
+                const r = btn.getBoundingClientRect();
+                gsap.to(btn, { x: (e.clientX - r.left - r.width/2) * 0.3, y: (e.clientY - r.top - r.height/2) * 0.3, duration: 0.3, ease: 'power2.out' });
+            });
+            btn.addEventListener('mouseleave', () => {
+                gsap.to(btn, { x: 0, y: 0, duration: 0.5, ease: 'elastic.out(1, 0.3)' });
+            });
+        });
+
+        // ─── Navbar ───────────────────────────────────────────────────
+        let lastScroll = 0;
+        const nav = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            const cur = window.scrollY;
+            if (cur > 80) {
+                nav.classList.add('scrolled');
+                nav.style.transform = (cur > lastScroll && cur > 300) ? 'translateY(-100%)' : 'translateY(0)';
+            } else {
+                nav.classList.remove('scrolled');
+                nav.style.transform = 'translateY(0)';
+            }
+            lastScroll = cur;
+        });
+
+        // ─── Hero entrance ────────────────────────────────────────────
+        gsap.from('.hero-eyebrow', { opacity: 0, y: 30, duration: 1, delay: 0.3, ease: 'power2.out' });
+        gsap.from('.hero h1',      { opacity: 0, y: 50, duration: 1.2, delay: 0.5, ease: 'power2.out' });
+        gsap.from('.hero-sub',     { opacity: 0, y: 30, duration: 1, delay: 0.8, ease: 'power2.out' });
+        gsap.from('.hero-actions', { opacity: 0, y: 30, duration: 1, delay: 1.0, ease: 'power2.out' });
+
+        // ─── Year ─────────────────────────────────────────────────────
+        document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>
