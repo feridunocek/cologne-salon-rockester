@@ -120,8 +120,44 @@
         }
         .nav-cta:hover { background: var(--accent); color: var(--bg); }
 
-        .nav-hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
-        .nav-hamburger span { width: 26px; height: 2px; background: var(--text); display: block; }
+        .nav-hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; z-index: 1001; }
+        .nav-hamburger span { width: 26px; height: 2px; background: var(--text); display: block; transition: transform 0.3s, opacity 0.3s; }
+        .nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+        .nav-hamburger.open span:nth-child(2) { opacity: 0; }
+        .nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+        /* Mobile nav overlay */
+        .mobile-nav {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 999;
+            background: rgba(13, 10, 8, 0.97);
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 2rem;
+        }
+        .mobile-nav.open { display: flex; }
+        .mobile-nav a {
+            font-family: var(--font-display);
+            font-size: clamp(2rem, 8vw, 3rem);
+            letter-spacing: 0.08em;
+            color: var(--text);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        .mobile-nav a:hover { color: var(--accent); }
+        .mobile-nav-cta {
+            margin-top: 1rem;
+            background: transparent;
+            border: 1px solid var(--accent) !important;
+            color: var(--accent) !important;
+            padding: 0.8rem 2rem;
+            font-family: var(--font-display);
+            font-size: 1rem !important;
+            letter-spacing: 0.12em;
+        }
 
         /* ─── Texture macro ─────────────────────────────────────────── */
         .has-texture::before {
@@ -638,19 +674,45 @@
             .nav-links, .nav-cta { display: none; }
             .nav-hamburger { display: flex; }
             .booking-cta { flex-direction: column; align-items: flex-start; }
-            .track { grid-template-columns: 2.5rem 1fr auto auto; }
+            .track { grid-template-columns: 2.5rem 1fr auto; gap: 1rem; }
             .track-progress { display: none; }
+            .repertoire-header { flex-direction: column; align-items: flex-start; gap: 1.5rem; }
+            .repertoire-intro { max-width: 100%; }
+            .booking-cta { padding: 2rem; }
         }
         @media (max-width: 600px) {
-            .members-grid { grid-template-columns: repeat(2, 1fr); }
-            .about-stats { gap: 1.5rem; }
+            :root { --section-padding: clamp(3rem, 6vw, 6rem); }
+            .container { padding: 0 1.2rem; }
+            .members-grid { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+            .about-stats { gap: 1.5rem; flex-wrap: wrap; }
             .songs-grid { grid-template-columns: 1fr; }
             .venue-types { grid-template-columns: 1fr; }
-            .footer-inner { flex-direction: column; align-items: flex-start; }
+            .footer-inner { flex-direction: column; align-items: flex-start; gap: 1.2rem; }
+            .footer-links { flex-wrap: wrap; gap: 1rem; }
+            h1 { font-size: clamp(2.4rem, 11vw, 4rem); }
+            h2 { font-size: clamp(2rem, 9vw, 3.5rem); }
+            .hero-actions { flex-direction: column; align-items: flex-start; gap: 0.75rem; }
+            .hero-actions .btn { width: 100%; justify-content: center; }
+            .track { padding: 1.2rem; }
+            .track-time { display: none; }
+            .contact-cards { gap: 1rem; }
+            .contact-card { padding: 1.4rem; }
+            .booking-cta { padding: 1.5rem; }
+            .booking-cta .btn { width: 100%; justify-content: center; }
         }
     </style>
 </head>
 <body>
+
+    <!-- ─── Mobile Nav ─────────────────────────────────────────────────── -->
+    <div class="mobile-nav" id="mobileNav">
+        <a href="#about" class="mobile-nav-link">Über uns</a>
+        <a href="#repertoire" class="mobile-nav-link">Repertoire</a>
+        <a href="#hoerproben" class="mobile-nav-link">Hörproben</a>
+        <a href="#members" class="mobile-nav-link">Besetzung</a>
+        <a href="#performances" class="mobile-nav-link">Auftritte</a>
+        <a href="#contact" class="mobile-nav-link mobile-nav-cta">Booking anfragen</a>
+    </div>
 
     <!-- ─── Navbar ────────────────────────────────────────────────────── -->
     <nav id="navbar">
@@ -1303,6 +1365,24 @@
 
         // ─── Year ─────────────────────────────────────────────────────
         document.getElementById('year').textContent = new Date().getFullYear();
+
+        // ─── Mobile Nav ───────────────────────────────────────────────
+        const hamburger = document.getElementById('hamburger');
+        const mobileNav = document.getElementById('mobileNav');
+
+        hamburger.addEventListener('click', () => {
+            const isOpen = mobileNav.classList.toggle('open');
+            hamburger.classList.toggle('open', isOpen);
+            document.body.style.overflow = isOpen ? 'hidden' : '';
+        });
+
+        document.querySelectorAll('.mobile-nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileNav.classList.remove('open');
+                hamburger.classList.remove('open');
+                document.body.style.overflow = '';
+            });
+        });
     </script>
 </body>
 </html>
