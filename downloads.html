@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Downloads – Cologne Salon Rockester</title>
-    <meta name="description" content="Pressefotos, Flyer und weitere Materialien zum Download – Cologne Salon Rockester.">
+    <meta name="description" content="Pressefotos, Flyer, Logos und weitere Materialien – Cologne Salon Rockester.">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -24,7 +24,7 @@
             --font-display: 'Bebas Neue', sans-serif;
             --font-body: 'Libre Baskerville', Georgia, serif;
             --container-max: 1200px;
-            --section-padding: clamp(4rem, 8vw, 8rem);
+            --section-padding: clamp(3rem, 6vw, 6rem);
         }
 
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -37,286 +37,222 @@
             line-height: 1.8;
             -webkit-font-smoothing: antialiased;
         }
-
         .container { max-width: var(--container-max); margin: 0 auto; padding: 0 2rem; }
 
         /* ─── Navbar ─────────────────────────────────────────────────── */
         nav {
-            position: fixed;
-            top: 0; left: 0; right: 0;
-            z-index: 1000;
+            position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
             padding: 0.8rem 2rem;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
+            display: flex; align-items: center; justify-content: space-between;
             background: rgba(13, 10, 8, 0.92);
             backdrop-filter: blur(16px);
             border-bottom: 1px solid var(--border);
         }
-
         .nav-logo { text-decoration: none; display: flex; align-items: center; }
         .nav-logo img { height: 56px; width: auto; filter: brightness(0.9); transition: filter 0.3s; }
         .nav-logo:hover img { filter: brightness(1.1); }
-
         .nav-back {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            color: var(--text-muted);
-            text-decoration: none;
-            font-family: var(--font-display);
-            font-size: 0.82rem;
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-            transition: color 0.3s;
+            display: inline-flex; align-items: center; gap: 0.5rem;
+            color: var(--text-muted); text-decoration: none;
+            font-family: var(--font-display); font-size: 0.82rem;
+            letter-spacing: 0.15em; text-transform: uppercase; transition: color 0.3s;
         }
         .nav-back:hover { color: var(--accent); }
-        .nav-back svg { transition: transform 0.3s; }
         .nav-back:hover svg { transform: translateX(-3px); }
+        .nav-back svg { transition: transform 0.3s; }
 
         /* ─── Page Header ────────────────────────────────────────────── */
         .page-header {
-            padding: 9rem 0 5rem;
-            position: relative;
-            overflow: hidden;
+            padding: 9rem 0 5rem; position: relative; overflow: hidden;
             border-bottom: 1px solid var(--border);
         }
         .page-header-bg {
-            position: absolute;
-            inset: 0;
+            position: absolute; inset: 0;
             background: url('images/hero-bg.jpg') center 40% / cover no-repeat;
-            opacity: 0.08;
-            pointer-events: none;
+            opacity: 0.07; pointer-events: none;
         }
         .page-header-inner { position: relative; z-index: 1; }
         .section-label {
-            font-family: var(--font-display);
-            font-size: 0.8rem;
-            letter-spacing: 0.35em;
-            color: var(--accent);
-            text-transform: uppercase;
-            margin-bottom: 1rem;
-            display: flex;
-            align-items: center;
-            gap: 1rem;
+            font-family: var(--font-display); font-size: 0.8rem;
+            letter-spacing: 0.35em; color: var(--accent);
+            text-transform: uppercase; margin-bottom: 1rem;
+            display: flex; align-items: center; gap: 1rem;
         }
         .section-label::before { content: ''; width: 40px; height: 1px; background: var(--accent); }
-
         .page-header h1 {
             font-family: var(--font-display);
             font-size: clamp(3rem, 8vw, 6rem);
-            font-weight: 400;
-            letter-spacing: 0.04em;
-            line-height: 1.05;
-            margin-bottom: 1.2rem;
+            font-weight: 400; letter-spacing: 0.04em; line-height: 1.05; margin-bottom: 1.2rem;
         }
-        .page-header p {
-            color: var(--text-muted);
-            font-style: italic;
-            max-width: 55ch;
-        }
+        .page-header p { color: var(--text-muted); font-style: italic; max-width: 55ch; }
 
-        /* ─── Category tabs ──────────────────────────────────────────── */
-        .cat-tabs {
-            display: flex;
-            gap: 0;
+        /* ─── Main tabs ──────────────────────────────────────────────── */
+        .main-tabs {
+            display: flex; gap: 0;
             border-bottom: 1px solid var(--border);
-            margin-bottom: 4rem;
-            overflow-x: auto;
-            scrollbar-width: none;
+            margin-bottom: 0;
+            overflow-x: auto; scrollbar-width: none;
+            position: sticky; top: 72px; z-index: 100;
+            background: var(--bg);
         }
-        .cat-tabs::-webkit-scrollbar { display: none; }
-
-        .cat-tab {
-            font-family: var(--font-display);
-            font-size: 0.85rem;
-            letter-spacing: 0.2em;
-            text-transform: uppercase;
-            color: var(--text-muted);
-            padding: 1rem 1.8rem;
-            cursor: pointer;
-            border: none;
-            background: transparent;
-            border-bottom: 2px solid transparent;
-            margin-bottom: -1px;
-            transition: color 0.3s, border-color 0.3s;
-            white-space: nowrap;
+        .main-tabs::-webkit-scrollbar { display: none; }
+        .main-tab {
+            font-family: var(--font-display); font-size: 0.88rem;
+            letter-spacing: 0.2em; text-transform: uppercase;
+            color: var(--text-muted); padding: 1.1rem 2rem;
+            cursor: pointer; border: none; background: transparent;
+            border-bottom: 2px solid transparent; margin-bottom: -1px;
+            transition: color 0.3s, border-color 0.3s; white-space: nowrap;
         }
-        .cat-tab:hover { color: var(--text); }
-        .cat-tab.active { color: var(--accent); border-bottom-color: var(--accent); }
+        .main-tab:hover { color: var(--text); }
+        .main-tab.active { color: var(--accent); border-bottom-color: var(--accent); }
 
-        /* ─── Download sections ──────────────────────────────────────── */
-        .dl-section { padding: var(--section-padding) 0; display: none; }
+        /* ─── Sections ───────────────────────────────────────────────── */
+        .dl-section { display: none; padding: var(--section-padding) 0 calc(var(--section-padding) * 1.5); }
         .dl-section.visible { display: block; }
 
-        .dl-section-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-end;
-            margin-bottom: 3rem;
-            gap: 2rem;
-            flex-wrap: wrap;
+        .section-intro { margin-bottom: 3rem; }
+        .section-intro h2 {
+            font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 400; letter-spacing: 0.05em; margin-bottom: 0.5rem;
         }
-        .dl-section-header h2 {
-            font-family: var(--font-display);
-            font-size: clamp(2rem, 4vw, 3rem);
-            font-weight: 400;
-            letter-spacing: 0.05em;
+        .section-intro p { color: var(--text-muted); font-style: italic; max-width: 55ch; }
+
+        /* ─── Sub-filter pills ───────────────────────────────────────── */
+        .sub-filters {
+            display: flex; gap: 0.6rem; flex-wrap: wrap; margin-bottom: 2.5rem;
         }
-        .dl-section-header p { color: var(--text-muted); font-style: italic; max-width: 45ch; }
+        .sub-filter {
+            font-family: var(--font-display); font-size: 0.78rem;
+            letter-spacing: 0.12em; text-transform: uppercase;
+            color: var(--text-muted); padding: 0.4rem 1rem;
+            border: 1px solid var(--border); background: transparent;
+            cursor: pointer; transition: color 0.3s, border-color 0.3s, background 0.3s;
+        }
+        .sub-filter:hover { color: var(--text); border-color: rgba(240,232,216,0.3); }
+        .sub-filter.active { color: var(--accent); border-color: var(--accent); background: rgba(201,168,76,0.07); }
 
         /* ─── Photo grid ─────────────────────────────────────────────── */
         .photo-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 1.5rem;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 1.2rem;
         }
-
         .photo-card {
-            background: var(--card);
-            border: 1px solid var(--border);
-            overflow: hidden;
-            position: relative;
+            background: var(--card); border: 1px solid var(--border);
+            overflow: hidden; position: relative;
             transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
         }
-        .photo-card:hover {
-            border-color: rgba(201, 168, 76, 0.4);
-            transform: translateY(-3px);
-            box-shadow: 0 16px 50px rgba(0,0,0,0.5);
-        }
+        .photo-card[data-group] { }
+        .photo-card.hidden { display: none; }
+        .photo-card:hover { border-color: rgba(201,168,76,0.4); transform: translateY(-3px); box-shadow: 0 16px 50px rgba(0,0,0,0.5); }
         .photo-card::before {
-            content: '';
-            position: absolute; top: 0; left: 0; right: 0;
-            height: 2px;
-            background: var(--accent);
-            transform: scaleX(0);
-            transition: transform 0.4s;
-            z-index: 2;
+            content: ''; position: absolute; top: 0; left: 0; right: 0;
+            height: 2px; background: var(--accent);
+            transform: scaleX(0); transition: transform 0.4s; z-index: 2;
         }
         .photo-card:hover::before { transform: scaleX(1); }
 
         .photo-thumb {
-            width: 100%;
-            aspect-ratio: 4 / 3;
-            overflow: hidden;
-            background: var(--card-hover);
-            position: relative;
+            width: 100%; aspect-ratio: 4/3; overflow: hidden;
+            background: var(--card-hover); position: relative;
         }
+        .photo-thumb.portrait { aspect-ratio: 2/3; }
         .photo-thumb img {
-            width: 100%; height: 100%;
-            object-fit: cover;
-            object-position: top center;
-            display: block;
-            filter: grayscale(20%);
+            width: 100%; height: 100%; object-fit: cover; object-position: top center;
+            display: block; filter: grayscale(15%);
             transition: transform 0.5s, filter 0.5s;
         }
-        .photo-card:hover .photo-thumb img {
-            transform: scale(1.05);
-            filter: grayscale(0%);
-        }
+        .photo-card:hover .photo-thumb img { transform: scale(1.05); filter: grayscale(0%); }
         .photo-thumb-overlay {
             position: absolute; inset: 0;
-            background: rgba(13,10,8,0.55);
+            background: rgba(13,10,8,0.6);
             display: flex; align-items: center; justify-content: center;
-            opacity: 0;
-            transition: opacity 0.3s;
-            z-index: 1;
+            opacity: 0; transition: opacity 0.3s; z-index: 1;
         }
         .photo-card:hover .photo-thumb-overlay { opacity: 1; }
         .photo-thumb-overlay span {
-            font-family: var(--font-display);
-            font-size: 0.85rem;
-            letter-spacing: 0.2em;
-            color: var(--accent);
-            text-transform: uppercase;
-            border: 1px solid var(--accent);
-            padding: 0.5rem 1.2rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
+            font-family: var(--font-display); font-size: 0.82rem;
+            letter-spacing: 0.2em; color: var(--accent); text-transform: uppercase;
+            border: 1px solid var(--accent); padding: 0.45rem 1.1rem;
+            display: flex; align-items: center; gap: 0.5rem;
         }
-
         .photo-info {
-            padding: 1.2rem 1.4rem;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 1rem;
+            padding: 1rem 1.2rem;
+            display: flex; align-items: center; justify-content: space-between; gap: 0.8rem;
         }
-        .photo-name {
-            font-family: var(--font-display);
-            font-size: 1rem;
-            letter-spacing: 0.06em;
-            color: var(--text);
-        }
-        .photo-meta { font-size: 0.75rem; color: var(--text-muted); font-style: italic; margin-top: 0.15rem; }
+        .photo-name { font-family: var(--font-display); font-size: 0.95rem; letter-spacing: 0.05em; }
+        .photo-meta { font-size: 0.72rem; color: var(--text-muted); font-style: italic; margin-top: 0.1rem; }
 
         .dl-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.4rem;
-            background: transparent;
-            border: 1px solid var(--border);
-            color: var(--accent);
-            padding: 0.5rem 0.9rem;
-            font-family: var(--font-display);
-            font-size: 0.75rem;
-            letter-spacing: 0.1em;
-            text-decoration: none;
-            text-transform: uppercase;
-            transition: background 0.3s, border-color 0.3s;
-            flex-shrink: 0;
+            display: inline-flex; align-items: center; gap: 0.4rem;
+            background: transparent; border: 1px solid var(--border);
+            color: var(--accent); padding: 0.45rem 0.85rem;
+            font-family: var(--font-display); font-size: 0.72rem;
+            letter-spacing: 0.1em; text-decoration: none; text-transform: uppercase;
+            transition: background 0.3s, border-color 0.3s; flex-shrink: 0;
         }
-        .dl-btn:hover { background: rgba(201, 168, 76, 0.1); border-color: var(--accent); }
+        .dl-btn:hover { background: rgba(201,168,76,0.1); border-color: var(--accent); }
 
-        /* ─── File list (Flyer, Logo, etc.) ─────────────────────────── */
+        /* ─── File list ──────────────────────────────────────────────── */
         .file-list { display: flex; flex-direction: column; gap: 2px; }
-
         .file-row {
-            background: var(--card);
-            border: 1px solid var(--border);
+            background: var(--card); border: 1px solid var(--border);
             padding: 1.4rem 2rem;
-            display: grid;
-            grid-template-columns: 3rem 1fr auto;
-            align-items: center;
-            gap: 1.5rem;
+            display: grid; grid-template-columns: 3rem 1fr auto;
+            align-items: center; gap: 1.5rem;
             transition: background 0.3s, border-color 0.3s;
         }
-        .file-row:hover { background: var(--card-hover); border-color: rgba(201, 168, 76, 0.3); }
-
+        .file-row:hover { background: var(--card-hover); border-color: rgba(201,168,76,0.3); }
         .file-icon {
             width: 44px; height: 44px;
-            background: rgba(201, 168, 76, 0.07);
-            border: 1px solid var(--border);
-            display: flex; align-items: center; justify-content: center;
-            color: var(--accent);
-            flex-shrink: 0;
+            background: rgba(201,168,76,0.07); border: 1px solid var(--border);
+            display: flex; align-items: center; justify-content: center; color: var(--accent); flex-shrink: 0;
         }
-        .file-name {
-            font-family: var(--font-display);
-            font-size: 1.1rem;
-            letter-spacing: 0.05em;
-            color: var(--text);
-        }
+        .file-name { font-family: var(--font-display); font-size: 1.1rem; letter-spacing: 0.05em; }
         .file-desc { font-size: 0.82rem; color: var(--text-muted); font-style: italic; margin-top: 0.2rem; }
 
-        /* ─── Empty state ────────────────────────────────────────────── */
-        .empty-state {
-            background: var(--card);
-            border: 1px solid var(--border);
-            border-style: dashed;
-            padding: 5rem 2rem;
-            text-align: center;
+        /* ─── Autogrammkarte preview ─────────────────────────────────── */
+        .card-preview {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 3rem;
         }
-        .empty-state-icon { color: rgba(201, 168, 76, 0.25); margin: 0 auto 1.5rem; display: block; }
-        .empty-state h3 {
-            font-family: var(--font-display);
-            font-size: 1.5rem;
-            letter-spacing: 0.06em;
-            color: var(--text-muted);
-            margin-bottom: 0.5rem;
+        .card-face {
+            background: var(--card); border: 1px solid var(--border); overflow: hidden;
+            transition: border-color 0.3s;
         }
-        .empty-state p { color: var(--text-muted); font-style: italic; font-size: 0.9rem; }
+        .card-face:hover { border-color: rgba(201,168,76,0.4); }
+        .card-face img { width: 100%; display: block; }
+        .card-face-label {
+            padding: 0.8rem 1.2rem;
+            display: flex; align-items: center; justify-content: space-between;
+        }
+        .card-face-label span { font-family: var(--font-display); font-size: 0.9rem; letter-spacing: 0.08em; color: var(--text-muted); }
+
+        /* ─── Logo / QR grid ─────────────────────────────────────────── */
+        .asset-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1.5rem; margin-bottom: 3rem; }
+        .asset-card {
+            background: var(--card); border: 1px solid var(--border);
+            overflow: hidden; transition: border-color 0.3s;
+        }
+        .asset-card:hover { border-color: rgba(201,168,76,0.4); }
+        .asset-preview {
+            width: 100%; padding: 2rem; display: flex; align-items: center; justify-content: center;
+            background: #161009;
+        }
+        .asset-preview img { max-width: 100%; max-height: 140px; object-fit: contain; display: block; }
+        .asset-info { padding: 1rem 1.2rem; display: flex; align-items: center; justify-content: space-between; gap: 0.8rem; }
+        .asset-name { font-family: var(--font-display); font-size: 0.95rem; letter-spacing: 0.06em; }
+        .asset-meta { font-size: 0.72rem; color: var(--text-muted); font-style: italic; margin-top: 0.1rem; }
+
+        /* ─── Sub-section divider ────────────────────────────────────── */
+        .sub-heading {
+            font-family: var(--font-display); font-size: 1rem; letter-spacing: 0.2em;
+            color: var(--accent); text-transform: uppercase;
+            display: flex; align-items: center; gap: 1rem;
+            margin: 3rem 0 1.5rem;
+        }
+        .sub-heading::after { content: ''; flex: 1; height: 1px; background: var(--border); }
 
         /* ─── Footer ─────────────────────────────────────────────────── */
         footer { background: #0a0806; border-top: 1px solid var(--border); padding: 2.5rem 0; }
@@ -325,21 +261,18 @@
         .footer-logo-wrap img { height: 48px; width: auto; opacity: 0.85; }
         .footer-tagline { font-size: 0.8rem; color: var(--text-muted); font-style: italic; }
         .footer-copy { font-size: 0.78rem; color: var(--text-muted); }
-        .footer-back {
-            font-size: 0.78rem; letter-spacing: 0.12em; color: var(--text-muted);
-            text-decoration: none; text-transform: uppercase; font-family: var(--font-display);
-            transition: color 0.3s;
-        }
+        .footer-back { font-size: 0.78rem; letter-spacing: 0.12em; color: var(--text-muted); text-decoration: none; text-transform: uppercase; font-family: var(--font-display); transition: color 0.3s; }
         .footer-back:hover { color: var(--accent); }
 
         @media (max-width: 768px) {
-            .dl-section-header { flex-direction: column; align-items: flex-start; }
+            .card-preview { grid-template-columns: 1fr; }
             .file-row { grid-template-columns: 3rem 1fr; }
-            .file-row .dl-btn { grid-column: 2; justify-self: start; margin-top: 0.5rem; }
+            .file-row .dl-btn { grid-column: 2; margin-top: 0.5rem; }
+            .main-tab { padding: 1rem 1.3rem; font-size: 0.8rem; }
         }
         @media (max-width: 600px) {
             .page-header { padding: 7rem 0 3.5rem; }
-            .photo-grid { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+            .photo-grid { grid-template-columns: repeat(2, 1fr); gap: 0.8rem; }
             .footer-inner { flex-direction: column; align-items: flex-start; gap: 1.2rem; }
         }
     </style>
@@ -367,209 +300,617 @@
         </div>
     </div>
 
-    <!-- ─── Main ─────────────────────────────────────────────────────── -->
+    <!-- ─── Main Tabs ────────────────────────────────────────────────── -->
+    <div class="container">
+        <div class="main-tabs" id="mainTabs">
+            <button class="main-tab active" data-target="pressefotos">Pressefotos</button>
+            <button class="main-tab" data-target="flyer">Flyer &amp; Karten</button>
+            <button class="main-tab" data-target="logos">Logos &amp; QR</button>
+            <button class="main-tab" data-target="presse">Presse</button>
+        </div>
+    </div>
+
     <main>
         <div class="container">
 
-            <!-- Category Tabs -->
-            <div class="cat-tabs" id="catTabs">
-                <button class="cat-tab active" data-target="fotos">Pressefotos</button>
-                <button class="cat-tab" data-target="flyer">Flyer</button>
-                <button class="cat-tab" data-target="logos">Logos</button>
-                <button class="cat-tab" data-target="sonstiges">Sonstiges</button>
-            </div>
-
-            <!-- ─── Pressefotos ──────────────────────────────────────── -->
-            <div class="dl-section visible" id="fotos">
-                <div class="dl-section-header">
-                    <div>
-                        <h2>Pressefotos</h2>
-                        <p>Bandfotos und Einzelportraits zur freien Nutzung in Presse und Veranstaltungsankündigungen.</p>
-                    </div>
+            <!-- ════════════════════════════════════════════════════════
+                 PRESSEFOTOS
+            ═══════════════════════════════════════════════════════════ -->
+            <div class="dl-section visible" id="pressefotos">
+                <div class="section-intro">
+                    <h2>Pressefotos</h2>
+                    <p>Alle Fotos sind für redaktionelle Nutzung freigegeben. Bitte Band bzw. Fotograf nennen.</p>
                 </div>
 
-                <div class="photo-grid">
+                <div class="sub-filters" id="photoFilters">
+                    <button class="sub-filter active" data-group="all">Alle</button>
+                    <button class="sub-filter" data-group="portraits">Portraits</button>
+                    <button class="sub-filter" data-group="band">Bandfotos</button>
+                    <button class="sub-filter" data-group="live">Live</button>
+                </div>
 
-                    <div class="photo-card">
-                        <div class="photo-thumb">
-                            <img src="images/band/band-alpha.png" alt="Cologne Salon Rockester – Bandfofo">
-                            <div class="photo-thumb-overlay">
-                                <span><i data-lucide="download" width="14" height="14"></i> Download</span>
-                            </div>
+                <div class="photo-grid" id="photoGrid">
+
+                    <!-- Portraits -->
+                    <div class="photo-card" data-group="portraits">
+                        <div class="photo-thumb portrait">
+                            <img src="images/band/detlef-lauenstein.png" alt="Detlef Lauenstein" loading="lazy">
+                            <div class="photo-thumb-overlay"><span><i data-lucide="download" width="13" height="13"></i> Download</span></div>
                         </div>
                         <div class="photo-info">
-                            <div>
-                                <div class="photo-name">Bandfofo</div>
-                                <div class="photo-meta">PNG · Gesamte Band</div>
-                            </div>
-                            <a href="images/band/band-alpha.png" download class="dl-btn">
-                                <i data-lucide="download" width="13" height="13"></i> PNG
-                            </a>
+                            <div><div class="photo-name">Detlef Lauenstein</div><div class="photo-meta">PNG · Lead Vocals</div></div>
+                            <a href="images/band/detlef-lauenstein.png" download class="dl-btn"><i data-lucide="download" width="12" height="12"></i> PNG</a>
                         </div>
                     </div>
 
-                    <div class="photo-card">
-                        <div class="photo-thumb">
-                            <img src="images/band/detlef-lauenstein.png" alt="Detlef Lauenstein">
-                            <div class="photo-thumb-overlay">
-                                <span><i data-lucide="download" width="14" height="14"></i> Download</span>
-                            </div>
+                    <div class="photo-card" data-group="portraits">
+                        <div class="photo-thumb portrait">
+                            <img src="images/band/rainer-thielen.png" alt="Rainer Thielen" loading="lazy">
+                            <div class="photo-thumb-overlay"><span><i data-lucide="download" width="13" height="13"></i> Download</span></div>
                         </div>
                         <div class="photo-info">
-                            <div>
-                                <div class="photo-name">Detlef Lauenstein</div>
-                                <div class="photo-meta">PNG · Lead Vocals</div>
-                            </div>
-                            <a href="images/band/detlef-lauenstein.png" download class="dl-btn">
-                                <i data-lucide="download" width="13" height="13"></i> PNG
-                            </a>
+                            <div><div class="photo-name">Rainer Thielen</div><div class="photo-meta">PNG · Gitarre</div></div>
+                            <a href="images/band/rainer-thielen.png" download class="dl-btn"><i data-lucide="download" width="12" height="12"></i> PNG</a>
                         </div>
                     </div>
 
-                    <div class="photo-card">
-                        <div class="photo-thumb">
-                            <img src="images/band/rainer-thielen.png" alt="Rainer Thielen">
-                            <div class="photo-thumb-overlay">
-                                <span><i data-lucide="download" width="14" height="14"></i> Download</span>
-                            </div>
+                    <div class="photo-card" data-group="portraits">
+                        <div class="photo-thumb portrait">
+                            <img src="images/band/claudius-krause.png" alt="Claudius Krause" loading="lazy">
+                            <div class="photo-thumb-overlay"><span><i data-lucide="download" width="13" height="13"></i> Download</span></div>
                         </div>
                         <div class="photo-info">
-                            <div>
-                                <div class="photo-name">Rainer Thielen</div>
-                                <div class="photo-meta">PNG · Gitarre</div>
-                            </div>
-                            <a href="images/band/rainer-thielen.png" download class="dl-btn">
-                                <i data-lucide="download" width="13" height="13"></i> PNG
-                            </a>
+                            <div><div class="photo-name">Claudius Krause</div><div class="photo-meta">PNG · Piano · Hammond</div></div>
+                            <a href="images/band/claudius-krause.png" download class="dl-btn"><i data-lucide="download" width="12" height="12"></i> PNG</a>
                         </div>
                     </div>
 
-                    <div class="photo-card">
-                        <div class="photo-thumb">
-                            <img src="images/band/claudius-krause.png" alt="Claudius Krause">
-                            <div class="photo-thumb-overlay">
-                                <span><i data-lucide="download" width="14" height="14"></i> Download</span>
-                            </div>
+                    <div class="photo-card" data-group="portraits">
+                        <div class="photo-thumb portrait">
+                            <img src="images/band/dieter-dreesbach.png" alt="Dieter Dreesbach" loading="lazy">
+                            <div class="photo-thumb-overlay"><span><i data-lucide="download" width="13" height="13"></i> Download</span></div>
                         </div>
                         <div class="photo-info">
-                            <div>
-                                <div class="photo-name">Claudius Krause</div>
-                                <div class="photo-meta">PNG · Piano · Hammond</div>
-                            </div>
-                            <a href="images/band/claudius-krause.png" download class="dl-btn">
-                                <i data-lucide="download" width="13" height="13"></i> PNG
-                            </a>
+                            <div><div class="photo-name">Dieter Dreesbach</div><div class="photo-meta">PNG · Keys · Akkordeon</div></div>
+                            <a href="images/band/dieter-dreesbach.png" download class="dl-btn"><i data-lucide="download" width="12" height="12"></i> PNG</a>
                         </div>
                     </div>
 
-                    <div class="photo-card">
-                        <div class="photo-thumb">
-                            <img src="images/band/dieter-dreesbach.png" alt="Dieter Dreesbach">
-                            <div class="photo-thumb-overlay">
-                                <span><i data-lucide="download" width="14" height="14"></i> Download</span>
-                            </div>
+                    <div class="photo-card" data-group="portraits">
+                        <div class="photo-thumb portrait">
+                            <img src="images/band/freddy-maassen.png" alt="Freddy Maassen" loading="lazy">
+                            <div class="photo-thumb-overlay"><span><i data-lucide="download" width="13" height="13"></i> Download</span></div>
                         </div>
                         <div class="photo-info">
-                            <div>
-                                <div class="photo-name">Dieter Dreesbach</div>
-                                <div class="photo-meta">PNG · Keys · Akkordeon · Posaune</div>
-                            </div>
-                            <a href="images/band/dieter-dreesbach.png" download class="dl-btn">
-                                <i data-lucide="download" width="13" height="13"></i> PNG
-                            </a>
+                            <div><div class="photo-name">Freddy Maassen</div><div class="photo-meta">PNG · Bass · Gesang</div></div>
+                            <a href="images/band/freddy-maassen.png" download class="dl-btn"><i data-lucide="download" width="12" height="12"></i> PNG</a>
                         </div>
                     </div>
 
-                    <div class="photo-card">
-                        <div class="photo-thumb">
-                            <img src="images/band/freddy-maassen.png" alt="Freddy Maassen">
-                            <div class="photo-thumb-overlay">
-                                <span><i data-lucide="download" width="14" height="14"></i> Download</span>
-                            </div>
+                    <div class="photo-card" data-group="portraits">
+                        <div class="photo-thumb portrait">
+                            <img src="images/band/michael-landen.png" alt="Michael Landen" loading="lazy">
+                            <div class="photo-thumb-overlay"><span><i data-lucide="download" width="13" height="13"></i> Download</span></div>
                         </div>
                         <div class="photo-info">
-                            <div>
-                                <div class="photo-name">Freddy Maassen</div>
-                                <div class="photo-meta">PNG · Bass · Gesang</div>
-                            </div>
-                            <a href="images/band/freddy-maassen.png" download class="dl-btn">
-                                <i data-lucide="download" width="13" height="13"></i> PNG
-                            </a>
+                            <div><div class="photo-name">Michael Landen</div><div class="photo-meta">PNG · Schlagzeug</div></div>
+                            <a href="images/band/michael-landen.png" download class="dl-btn"><i data-lucide="download" width="12" height="12"></i> PNG</a>
                         </div>
                     </div>
 
-                    <div class="photo-card">
+                    <!-- Bandfotos – Setcards -->
+                    <div class="photo-card" data-group="band">
                         <div class="photo-thumb">
-                            <img src="images/band/michael-landen.png" alt="Michael Landen">
-                            <div class="photo-thumb-overlay">
-                                <span><i data-lucide="download" width="14" height="14"></i> Download</span>
-                            </div>
+                            <img src="images/band/band-alpha.png" alt="Cologne Salon Rockester Bandfoto" loading="lazy">
+                            <div class="photo-thumb-overlay"><span><i data-lucide="download" width="13" height="13"></i> Download</span></div>
                         </div>
                         <div class="photo-info">
-                            <div>
-                                <div class="photo-name">Michael Landen</div>
-                                <div class="photo-meta">PNG · Schlagzeug</div>
-                            </div>
-                            <a href="images/band/michael-landen.png" download class="dl-btn">
-                                <i data-lucide="download" width="13" height="13"></i> PNG
-                            </a>
+                            <div><div class="photo-name">Bandfofo</div><div class="photo-meta">PNG · Gesamte Band</div></div>
+                            <a href="images/band/band-alpha.png" download class="dl-btn"><i data-lucide="download" width="12" height="12"></i> PNG</a>
+                        </div>
+                    </div>
+
+                    <div class="photo-card" data-group="band">
+                        <div class="photo-thumb">
+                            <img src="images/pressefotos/csr-foto-1.jpg" alt="CSR Bandfoto 1" loading="lazy">
+                            <div class="photo-thumb-overlay"><span><i data-lucide="download" width="13" height="13"></i> Download</span></div>
+                        </div>
+                        <div class="photo-info">
+                            <div><div class="photo-name">Bandfoto 1</div><div class="photo-meta">JPG</div></div>
+                            <a href="images/pressefotos/csr-foto-1.jpg" download class="dl-btn"><i data-lucide="download" width="12" height="12"></i> JPG</a>
+                        </div>
+                    </div>
+
+                    <div class="photo-card" data-group="band">
+                        <div class="photo-thumb">
+                            <img src="images/pressefotos/csr-foto-2.jpg" alt="CSR Bandfoto 2" loading="lazy">
+                            <div class="photo-thumb-overlay"><span><i data-lucide="download" width="13" height="13"></i> Download</span></div>
+                        </div>
+                        <div class="photo-info">
+                            <div><div class="photo-name">Bandfoto 2</div><div class="photo-meta">JPG</div></div>
+                            <a href="images/pressefotos/csr-foto-2.jpg" download class="dl-btn"><i data-lucide="download" width="12" height="12"></i> JPG</a>
+                        </div>
+                    </div>
+
+                    <div class="photo-card" data-group="band">
+                        <div class="photo-thumb">
+                            <img src="images/pressefotos/csr-foto-3.jpg" alt="CSR Bandfoto 3" loading="lazy">
+                            <div class="photo-thumb-overlay"><span><i data-lucide="download" width="13" height="13"></i> Download</span></div>
+                        </div>
+                        <div class="photo-info">
+                            <div><div class="photo-name">Bandfoto 3</div><div class="photo-meta">JPG</div></div>
+                            <a href="images/pressefotos/csr-foto-3.jpg" download class="dl-btn"><i data-lucide="download" width="12" height="12"></i> JPG</a>
+                        </div>
+                    </div>
+
+                    <div class="photo-card" data-group="band">
+                        <div class="photo-thumb">
+                            <img src="images/pressefotos/csr-foto-4.jpg" alt="CSR Bandfoto 4" loading="lazy">
+                            <div class="photo-thumb-overlay"><span><i data-lucide="download" width="13" height="13"></i> Download</span></div>
+                        </div>
+                        <div class="photo-info">
+                            <div><div class="photo-name">Bandfoto 4</div><div class="photo-meta">JPG</div></div>
+                            <a href="images/pressefotos/csr-foto-4.jpg" download class="dl-btn"><i data-lucide="download" width="12" height="12"></i> JPG</a>
+                        </div>
+                    </div>
+
+                    <!-- Bandfotos – CSO Fotos Auswahl -->
+                    <div class="photo-card" data-group="band">
+                        <div class="photo-thumb">
+                            <img src="images/pressefotos/cso-foto-01.jpg" alt="CSO Foto 01" loading="lazy">
+                            <div class="photo-thumb-overlay"><span><i data-lucide="download" width="13" height="13"></i> Download</span></div>
+                        </div>
+                        <div class="photo-info">
+                            <div><div class="photo-name">CSO Foto 01</div><div class="photo-meta">JPG</div></div>
+                            <a href="images/pressefotos/cso-foto-01.jpg" download class="dl-btn"><i data-lucide="download" width="12" height="12"></i> JPG</a>
+                        </div>
+                    </div>
+
+                    <div class="photo-card" data-group="band">
+                        <div class="photo-thumb">
+                            <img src="images/pressefotos/cso-foto-02.jpg" alt="CSO Foto 02" loading="lazy">
+                            <div class="photo-thumb-overlay"><span><i data-lucide="download" width="13" height="13"></i> Download</span></div>
+                        </div>
+                        <div class="photo-info">
+                            <div><div class="photo-name">CSO Foto 02</div><div class="photo-meta">JPG</div></div>
+                            <a href="images/pressefotos/cso-foto-02.jpg" download class="dl-btn"><i data-lucide="download" width="12" height="12"></i> JPG</a>
+                        </div>
+                    </div>
+
+                    <div class="photo-card" data-group="band">
+                        <div class="photo-thumb">
+                            <img src="images/pressefotos/cso-foto-03.jpg" alt="CSO Foto 03" loading="lazy">
+                            <div class="photo-thumb-overlay"><span><i data-lucide="download" width="13" height="13"></i> Download</span></div>
+                        </div>
+                        <div class="photo-info">
+                            <div><div class="photo-name">CSO Foto 03</div><div class="photo-meta">JPG</div></div>
+                            <a href="images/pressefotos/cso-foto-03.jpg" download class="dl-btn"><i data-lucide="download" width="12" height="12"></i> JPG</a>
+                        </div>
+                    </div>
+
+                    <div class="photo-card" data-group="band">
+                        <div class="photo-thumb">
+                            <img src="images/pressefotos/cso-foto-04.jpg" alt="CSO Foto 04" loading="lazy">
+                            <div class="photo-thumb-overlay"><span><i data-lucide="download" width="13" height="13"></i> Download</span></div>
+                        </div>
+                        <div class="photo-info">
+                            <div><div class="photo-name">CSO Foto 04</div><div class="photo-meta">JPG</div></div>
+                            <a href="images/pressefotos/cso-foto-04.jpg" download class="dl-btn"><i data-lucide="download" width="12" height="12"></i> JPG</a>
+                        </div>
+                    </div>
+
+                    <div class="photo-card" data-group="band">
+                        <div class="photo-thumb">
+                            <img src="images/pressefotos/cso-foto-05.jpg" alt="CSO Foto 05" loading="lazy">
+                            <div class="photo-thumb-overlay"><span><i data-lucide="download" width="13" height="13"></i> Download</span></div>
+                        </div>
+                        <div class="photo-info">
+                            <div><div class="photo-name">CSO Foto 05</div><div class="photo-meta">JPG</div></div>
+                            <a href="images/pressefotos/cso-foto-05.jpg" download class="dl-btn"><i data-lucide="download" width="12" height="12"></i> JPG</a>
+                        </div>
+                    </div>
+
+                    <div class="photo-card" data-group="band">
+                        <div class="photo-thumb">
+                            <img src="images/pressefotos/cso-foto-06.jpg" alt="CSO Foto 06" loading="lazy">
+                            <div class="photo-thumb-overlay"><span><i data-lucide="download" width="13" height="13"></i> Download</span></div>
+                        </div>
+                        <div class="photo-info">
+                            <div><div class="photo-name">CSO Foto 06</div><div class="photo-meta">JPG</div></div>
+                            <a href="images/pressefotos/cso-foto-06.jpg" download class="dl-btn"><i data-lucide="download" width="12" height="12"></i> JPG</a>
+                        </div>
+                    </div>
+
+                    <div class="photo-card" data-group="band">
+                        <div class="photo-thumb">
+                            <img src="images/pressefotos/cso-foto-07.jpg" alt="CSO Foto 07" loading="lazy">
+                            <div class="photo-thumb-overlay"><span><i data-lucide="download" width="13" height="13"></i> Download</span></div>
+                        </div>
+                        <div class="photo-info">
+                            <div><div class="photo-name">CSO Foto 07</div><div class="photo-meta">JPG</div></div>
+                            <a href="images/pressefotos/cso-foto-07.jpg" download class="dl-btn"><i data-lucide="download" width="12" height="12"></i> JPG</a>
+                        </div>
+                    </div>
+
+                    <div class="photo-card" data-group="band">
+                        <div class="photo-thumb">
+                            <img src="images/pressefotos/cso-foto-08.jpg" alt="CSO Foto 08" loading="lazy">
+                            <div class="photo-thumb-overlay"><span><i data-lucide="download" width="13" height="13"></i> Download</span></div>
+                        </div>
+                        <div class="photo-info">
+                            <div><div class="photo-name">CSO Foto 08</div><div class="photo-meta">JPG</div></div>
+                            <a href="images/pressefotos/cso-foto-08.jpg" download class="dl-btn"><i data-lucide="download" width="12" height="12"></i> JPG</a>
+                        </div>
+                    </div>
+
+                    <div class="photo-card" data-group="band">
+                        <div class="photo-thumb">
+                            <img src="images/pressefotos/cso-foto-09.jpg" alt="CSO Foto 09" loading="lazy">
+                            <div class="photo-thumb-overlay"><span><i data-lucide="download" width="13" height="13"></i> Download</span></div>
+                        </div>
+                        <div class="photo-info">
+                            <div><div class="photo-name">CSO Foto 09</div><div class="photo-meta">JPG</div></div>
+                            <a href="images/pressefotos/cso-foto-09.jpg" download class="dl-btn"><i data-lucide="download" width="12" height="12"></i> JPG</a>
+                        </div>
+                    </div>
+
+                    <div class="photo-card" data-group="band">
+                        <div class="photo-thumb">
+                            <img src="images/pressefotos/cso-foto-10.jpg" alt="CSO Foto 10" loading="lazy">
+                            <div class="photo-thumb-overlay"><span><i data-lucide="download" width="13" height="13"></i> Download</span></div>
+                        </div>
+                        <div class="photo-info">
+                            <div><div class="photo-name">CSO Foto 10</div><div class="photo-meta">JPG</div></div>
+                            <a href="images/pressefotos/cso-foto-10.jpg" download class="dl-btn"><i data-lucide="download" width="12" height="12"></i> JPG</a>
+                        </div>
+                    </div>
+
+                    <div class="photo-card" data-group="band">
+                        <div class="photo-thumb">
+                            <img src="images/pressefotos/cso-foto-11.jpg" alt="CSO Foto 11" loading="lazy">
+                            <div class="photo-thumb-overlay"><span><i data-lucide="download" width="13" height="13"></i> Download</span></div>
+                        </div>
+                        <div class="photo-info">
+                            <div><div class="photo-name">CSO Foto 11</div><div class="photo-meta">JPG</div></div>
+                            <a href="images/pressefotos/cso-foto-11.jpg" download class="dl-btn"><i data-lucide="download" width="12" height="12"></i> JPG</a>
+                        </div>
+                    </div>
+
+                    <div class="photo-card" data-group="band">
+                        <div class="photo-thumb">
+                            <img src="images/pressefotos/cso-foto-12.jpg" alt="CSO Foto 12" loading="lazy">
+                            <div class="photo-thumb-overlay"><span><i data-lucide="download" width="13" height="13"></i> Download</span></div>
+                        </div>
+                        <div class="photo-info">
+                            <div><div class="photo-name">CSO Foto 12</div><div class="photo-meta">JPG</div></div>
+                            <a href="images/pressefotos/cso-foto-12.jpg" download class="dl-btn"><i data-lucide="download" width="12" height="12"></i> JPG</a>
+                        </div>
+                    </div>
+
+                    <div class="photo-card" data-group="band">
+                        <div class="photo-thumb">
+                            <img src="images/pressefotos/cso-foto-13.jpg" alt="CSO Foto 13" loading="lazy">
+                            <div class="photo-thumb-overlay"><span><i data-lucide="download" width="13" height="13"></i> Download</span></div>
+                        </div>
+                        <div class="photo-info">
+                            <div><div class="photo-name">CSO Foto 13</div><div class="photo-meta">JPG</div></div>
+                            <a href="images/pressefotos/cso-foto-13.jpg" download class="dl-btn"><i data-lucide="download" width="12" height="12"></i> JPG</a>
+                        </div>
+                    </div>
+
+                    <div class="photo-card" data-group="band">
+                        <div class="photo-thumb">
+                            <img src="images/pressefotos/cso-foto-14.jpg" alt="CSO Foto 14" loading="lazy">
+                            <div class="photo-thumb-overlay"><span><i data-lucide="download" width="13" height="13"></i> Download</span></div>
+                        </div>
+                        <div class="photo-info">
+                            <div><div class="photo-name">CSO Foto 14</div><div class="photo-meta">JPG</div></div>
+                            <a href="images/pressefotos/cso-foto-14.jpg" download class="dl-btn"><i data-lucide="download" width="12" height="12"></i> JPG</a>
+                        </div>
+                    </div>
+
+                    <div class="photo-card" data-group="band">
+                        <div class="photo-thumb">
+                            <img src="images/pressefotos/cso-foto-15.jpg" alt="CSO Foto 15" loading="lazy">
+                            <div class="photo-thumb-overlay"><span><i data-lucide="download" width="13" height="13"></i> Download</span></div>
+                        </div>
+                        <div class="photo-info">
+                            <div><div class="photo-name">CSO Foto 15</div><div class="photo-meta">JPG</div></div>
+                            <a href="images/pressefotos/cso-foto-15.jpg" download class="dl-btn"><i data-lucide="download" width="12" height="12"></i> JPG</a>
+                        </div>
+                    </div>
+
+                    <div class="photo-card" data-group="band">
+                        <div class="photo-thumb">
+                            <img src="images/pressefotos/cso-foto-16.jpg" alt="CSO Foto 16" loading="lazy">
+                            <div class="photo-thumb-overlay"><span><i data-lucide="download" width="13" height="13"></i> Download</span></div>
+                        </div>
+                        <div class="photo-info">
+                            <div><div class="photo-name">CSO Foto 16</div><div class="photo-meta">JPG</div></div>
+                            <a href="images/pressefotos/cso-foto-16.jpg" download class="dl-btn"><i data-lucide="download" width="12" height="12"></i> JPG</a>
+                        </div>
+                    </div>
+
+                    <div class="photo-card" data-group="band">
+                        <div class="photo-thumb">
+                            <img src="images/pressefotos/cso-foto-17.jpg" alt="CSO Foto 17" loading="lazy">
+                            <div class="photo-thumb-overlay"><span><i data-lucide="download" width="13" height="13"></i> Download</span></div>
+                        </div>
+                        <div class="photo-info">
+                            <div><div class="photo-name">CSO Foto 17</div><div class="photo-meta">JPG</div></div>
+                            <a href="images/pressefotos/cso-foto-17.jpg" download class="dl-btn"><i data-lucide="download" width="12" height="12"></i> JPG</a>
+                        </div>
+                    </div>
+
+                    <div class="photo-card" data-group="band">
+                        <div class="photo-thumb">
+                            <img src="images/pressefotos/cso-foto-18.jpg" alt="CSO Foto 18" loading="lazy">
+                            <div class="photo-thumb-overlay"><span><i data-lucide="download" width="13" height="13"></i> Download</span></div>
+                        </div>
+                        <div class="photo-info">
+                            <div><div class="photo-name">CSO Foto 18</div><div class="photo-meta">JPG</div></div>
+                            <a href="images/pressefotos/cso-foto-18.jpg" download class="dl-btn"><i data-lucide="download" width="12" height="12"></i> JPG</a>
+                        </div>
+                    </div>
+
+                    <div class="photo-card" data-group="band">
+                        <div class="photo-thumb">
+                            <img src="images/pressefotos/cso-foto-19.jpg" alt="CSO Foto 19" loading="lazy">
+                            <div class="photo-thumb-overlay"><span><i data-lucide="download" width="13" height="13"></i> Download</span></div>
+                        </div>
+                        <div class="photo-info">
+                            <div><div class="photo-name">CSO Foto 19</div><div class="photo-meta">JPG</div></div>
+                            <a href="images/pressefotos/cso-foto-19.jpg" download class="dl-btn"><i data-lucide="download" width="12" height="12"></i> JPG</a>
+                        </div>
+                    </div>
+
+                    <div class="photo-card" data-group="band">
+                        <div class="photo-thumb">
+                            <img src="images/pressefotos/cso-foto-20.jpg" alt="CSO Foto 20" loading="lazy">
+                            <div class="photo-thumb-overlay"><span><i data-lucide="download" width="13" height="13"></i> Download</span></div>
+                        </div>
+                        <div class="photo-info">
+                            <div><div class="photo-name">CSO Foto 20</div><div class="photo-meta">JPG</div></div>
+                            <a href="images/pressefotos/cso-foto-20.jpg" download class="dl-btn"><i data-lucide="download" width="12" height="12"></i> JPG</a>
+                        </div>
+                    </div>
+
+                    <div class="photo-card" data-group="band">
+                        <div class="photo-thumb">
+                            <img src="images/pressefotos/cso-foto-21.jpg" alt="CSO Foto 21" loading="lazy">
+                            <div class="photo-thumb-overlay"><span><i data-lucide="download" width="13" height="13"></i> Download</span></div>
+                        </div>
+                        <div class="photo-info">
+                            <div><div class="photo-name">CSO Foto 21</div><div class="photo-meta">JPG</div></div>
+                            <a href="images/pressefotos/cso-foto-21.jpg" download class="dl-btn"><i data-lucide="download" width="12" height="12"></i> JPG</a>
+                        </div>
+                    </div>
+
+                    <!-- Live -->
+                    <div class="photo-card" data-group="live">
+                        <div class="photo-thumb">
+                            <img src="images/live/cso-live.jpg" alt="CSO Live" loading="lazy">
+                            <div class="photo-thumb-overlay"><span><i data-lucide="download" width="13" height="13"></i> Download</span></div>
+                        </div>
+                        <div class="photo-info">
+                            <div><div class="photo-name">CSO Live</div><div class="photo-meta">JPG · Gesamte Band</div></div>
+                            <a href="images/live/cso-live.jpg" download class="dl-btn"><i data-lucide="download" width="12" height="12"></i> JPG</a>
+                        </div>
+                    </div>
+
+                    <div class="photo-card" data-group="live">
+                        <div class="photo-thumb">
+                            <img src="images/live/csr-live.jpg" alt="CSR Live" loading="lazy">
+                            <div class="photo-thumb-overlay"><span><i data-lucide="download" width="13" height="13"></i> Download</span></div>
+                        </div>
+                        <div class="photo-info">
+                            <div><div class="photo-name">CSR Live V2</div><div class="photo-meta">JPG · Gesamte Band</div></div>
+                            <a href="images/live/csr-live.jpg" download class="dl-btn"><i data-lucide="download" width="12" height="12"></i> JPG</a>
+                        </div>
+                    </div>
+
+                    <div class="photo-card" data-group="live">
+                        <div class="photo-thumb">
+                            <img src="images/live/claudius-live.jpg" alt="Claudius live" loading="lazy">
+                            <div class="photo-thumb-overlay"><span><i data-lucide="download" width="13" height="13"></i> Download</span></div>
+                        </div>
+                        <div class="photo-info">
+                            <div><div class="photo-name">Claudius Live</div><div class="photo-meta">JPG</div></div>
+                            <a href="images/live/claudius-live.jpg" download class="dl-btn"><i data-lucide="download" width="12" height="12"></i> JPG</a>
+                        </div>
+                    </div>
+
+                    <div class="photo-card" data-group="live">
+                        <div class="photo-thumb">
+                            <img src="images/live/detlef-live.jpg" alt="Detlef live" loading="lazy">
+                            <div class="photo-thumb-overlay"><span><i data-lucide="download" width="13" height="13"></i> Download</span></div>
+                        </div>
+                        <div class="photo-info">
+                            <div><div class="photo-name">Detlef Live</div><div class="photo-meta">JPG</div></div>
+                            <a href="images/live/detlef-live.jpg" download class="dl-btn"><i data-lucide="download" width="12" height="12"></i> JPG</a>
+                        </div>
+                    </div>
+
+                    <div class="photo-card" data-group="live">
+                        <div class="photo-thumb">
+                            <img src="images/live/dieter-live.jpg" alt="Dieter live" loading="lazy">
+                            <div class="photo-thumb-overlay"><span><i data-lucide="download" width="13" height="13"></i> Download</span></div>
+                        </div>
+                        <div class="photo-info">
+                            <div><div class="photo-name">Dieter Live</div><div class="photo-meta">JPG</div></div>
+                            <a href="images/live/dieter-live.jpg" download class="dl-btn"><i data-lucide="download" width="12" height="12"></i> JPG</a>
+                        </div>
+                    </div>
+
+                    <div class="photo-card" data-group="live">
+                        <div class="photo-thumb">
+                            <img src="images/live/freddy-live.jpg" alt="Freddy live" loading="lazy">
+                            <div class="photo-thumb-overlay"><span><i data-lucide="download" width="13" height="13"></i> Download</span></div>
+                        </div>
+                        <div class="photo-info">
+                            <div><div class="photo-name">Freddy Live</div><div class="photo-meta">JPG</div></div>
+                            <a href="images/live/freddy-live.jpg" download class="dl-btn"><i data-lucide="download" width="12" height="12"></i> JPG</a>
+                        </div>
+                    </div>
+
+                    <div class="photo-card" data-group="live">
+                        <div class="photo-thumb">
+                            <img src="images/live/michael-live.jpg" alt="Michael live" loading="lazy">
+                            <div class="photo-thumb-overlay"><span><i data-lucide="download" width="13" height="13"></i> Download</span></div>
+                        </div>
+                        <div class="photo-info">
+                            <div><div class="photo-name">Michael Live</div><div class="photo-meta">JPG</div></div>
+                            <a href="images/live/michael-live.jpg" download class="dl-btn"><i data-lucide="download" width="12" height="12"></i> JPG</a>
+                        </div>
+                    </div>
+
+                    <div class="photo-card" data-group="live">
+                        <div class="photo-thumb">
+                            <img src="images/live/michael-freddy-live.jpg" alt="Michael & Freddy live" loading="lazy">
+                            <div class="photo-thumb-overlay"><span><i data-lucide="download" width="13" height="13"></i> Download</span></div>
+                        </div>
+                        <div class="photo-info">
+                            <div><div class="photo-name">Michael & Freddy Live</div><div class="photo-meta">JPG</div></div>
+                            <a href="images/live/michael-freddy-live.jpg" download class="dl-btn"><i data-lucide="download" width="12" height="12"></i> JPG</a>
+                        </div>
+                    </div>
+
+                    <div class="photo-card" data-group="live">
+                        <div class="photo-thumb">
+                            <img src="images/live/rainer-live.jpg" alt="Rainer live" loading="lazy">
+                            <div class="photo-thumb-overlay"><span><i data-lucide="download" width="13" height="13"></i> Download</span></div>
+                        </div>
+                        <div class="photo-info">
+                            <div><div class="photo-name">Rainer Live</div><div class="photo-meta">JPG</div></div>
+                            <a href="images/live/rainer-live.jpg" download class="dl-btn"><i data-lucide="download" width="12" height="12"></i> JPG</a>
+                        </div>
+                    </div>
+
+                    <div class="photo-card" data-group="live">
+                        <div class="photo-thumb">
+                            <img src="images/live/stella-tonon-live.jpg" alt="Gastsängerin Stella Tonon" loading="lazy">
+                            <div class="photo-thumb-overlay"><span><i data-lucide="download" width="13" height="13"></i> Download</span></div>
+                        </div>
+                        <div class="photo-info">
+                            <div><div class="photo-name">Stella Tonon (Gast)</div><div class="photo-meta">JPG · Gastsängerin</div></div>
+                            <a href="images/live/stella-tonon-live.jpg" download class="dl-btn"><i data-lucide="download" width="12" height="12"></i> JPG</a>
                         </div>
                     </div>
 
                 </div>
             </div>
 
-            <!-- ─── Flyer ─────────────────────────────────────────────── -->
+            <!-- ════════════════════════════════════════════════════════
+                 FLYER & KARTEN
+            ═══════════════════════════════════════════════════════════ -->
             <div class="dl-section" id="flyer">
-                <div class="dl-section-header">
-                    <div>
-                        <h2>Flyer</h2>
-                        <p>Veranstaltungsflyer und Promotional-Material zum Herunterladen und Weiterverteilen.</p>
-                    </div>
+                <div class="section-intro">
+                    <h2>Flyer &amp; Karten</h2>
+                    <p>Autogrammkarte und Druckmaterialien zum Download.</p>
                 </div>
-                <div class="empty-state">
-                    <i data-lucide="file-image" width="48" height="48" class="empty-state-icon"></i>
-                    <h3>Noch keine Flyer verfügbar</h3>
-                    <p>Flyer werden hier bereitgestellt, sobald sie vorliegen.</p>
-                </div>
-            </div>
 
-            <!-- ─── Logos ─────────────────────────────────────────────── -->
-            <div class="dl-section" id="logos">
-                <div class="dl-section-header">
-                    <div>
-                        <h2>Logos</h2>
-                        <p>Offizielle Logos in verschiedenen Formaten für Presse und Partnernutzung.</p>
+                <div class="sub-heading">Autogrammkarte</div>
+                <div class="card-preview">
+                    <div class="card-face">
+                        <img src="images/autogrammkarte-front.jpg" alt="Autogrammkarte Vorderseite" loading="lazy">
+                        <div class="card-face-label">
+                            <span>Vorderseite</span>
+                            <a href="images/autogrammkarte-front.jpg" download class="dl-btn"><i data-lucide="download" width="12" height="12"></i> JPG</a>
+                        </div>
+                    </div>
+                    <div class="card-face">
+                        <img src="images/autogrammkarte-back.jpg" alt="Autogrammkarte Rückseite" loading="lazy">
+                        <div class="card-face-label">
+                            <span>Rückseite</span>
+                            <a href="images/autogrammkarte-back.jpg" download class="dl-btn"><i data-lucide="download" width="12" height="12"></i> JPG</a>
+                        </div>
                     </div>
                 </div>
+
                 <div class="file-list">
                     <div class="file-row">
-                        <div class="file-icon">
-                            <i data-lucide="image" width="20" height="20"></i>
-                        </div>
+                        <div class="file-icon"><i data-lucide="file-text" width="20" height="20"></i></div>
                         <div>
-                            <div class="file-name">Cologne Salon Rockester – Logo</div>
-                            <div class="file-desc">PNG · Transparenter Hintergrund · Original</div>
+                            <div class="file-name">Autogrammkarte 2024</div>
+                            <div class="file-desc">PDF · Druckfertig · Vorder- und Rückseite</div>
                         </div>
-                        <a href="images/logo.png" download class="dl-btn">
-                            <i data-lucide="download" width="13" height="13"></i> PNG
-                        </a>
+                        <a href="docs/autogrammkarte-2024.pdf" download class="dl-btn"><i data-lucide="download" width="12" height="12"></i> PDF</a>
+                    </div>
+                    <div class="file-row">
+                        <div class="file-icon"><i data-lucide="file-text" width="20" height="20"></i></div>
+                        <div>
+                            <div class="file-name">Autogrammkarte (Original)</div>
+                            <div class="file-desc">PDF · Original-Datei</div>
+                        </div>
+                        <a href="docs/autogrammkarte.pdf" download class="dl-btn"><i data-lucide="download" width="12" height="12"></i> PDF</a>
                     </div>
                 </div>
             </div>
 
-            <!-- ─── Sonstiges ─────────────────────────────────────────── -->
-            <div class="dl-section" id="sonstiges">
-                <div class="dl-section-header">
-                    <div>
-                        <h2>Sonstiges</h2>
-                        <p>Technische Rider, Setlisten und weitere Dokumente.</p>
+            <!-- ════════════════════════════════════════════════════════
+                 LOGOS & QR
+            ═══════════════════════════════════════════════════════════ -->
+            <div class="dl-section" id="logos">
+                <div class="section-intro">
+                    <h2>Logos &amp; QR-Code</h2>
+                    <p>Offizielle Logos und QR-Code für Presse und Partnernutzung.</p>
+                </div>
+
+                <div class="asset-grid">
+                    <div class="asset-card">
+                        <div class="asset-preview">
+                            <img src="images/logo.png" alt="Cologne Salon Rockester Logo">
+                        </div>
+                        <div class="asset-info">
+                            <div>
+                                <div class="asset-name">Logo</div>
+                                <div class="asset-meta">PNG · Transparenter Hintergrund</div>
+                            </div>
+                            <a href="images/logo.png" download class="dl-btn"><i data-lucide="download" width="12" height="12"></i> PNG</a>
+                        </div>
+                    </div>
+
+                    <div class="asset-card">
+                        <div class="asset-preview" style="background:#fff;">
+                            <img src="images/qr-code.png" alt="QR-Code Homepage">
+                        </div>
+                        <div class="asset-info">
+                            <div>
+                                <div class="asset-name">QR-Code Homepage</div>
+                                <div class="asset-meta">PNG · Direktlink zur Website</div>
+                            </div>
+                            <a href="images/qr-code.png" download class="dl-btn"><i data-lucide="download" width="12" height="12"></i> PNG</a>
+                        </div>
                     </div>
                 </div>
-                <div class="empty-state">
-                    <i data-lucide="folder-open" width="48" height="48" class="empty-state-icon"></i>
-                    <h3>Noch keine Dokumente verfügbar</h3>
-                    <p>Technische Rider und weitere Dateien folgen in Kürze.</p>
+            </div>
+
+            <!-- ════════════════════════════════════════════════════════
+                 PRESSE
+            ═══════════════════════════════════════════════════════════ -->
+            <div class="dl-section" id="presse">
+                <div class="section-intro">
+                    <h2>Presse</h2>
+                    <p>Pressetext und technische Unterlagen für Veranstalter.</p>
+                </div>
+
+                <div class="file-list">
+                    <div class="file-row">
+                        <div class="file-icon"><i data-lucide="file-text" width="20" height="20"></i></div>
+                        <div>
+                            <div class="file-name">Pressetext</div>
+                            <div class="file-desc">PDF · Bandbiografie und Beschreibung für Presse und Veranstalter</div>
+                        </div>
+                        <a href="docs/pressetext.pdf" download class="dl-btn"><i data-lucide="download" width="12" height="12"></i> PDF</a>
+                    </div>
+                    <div class="file-row">
+                        <div class="file-icon"><i data-lucide="layout" width="20" height="20"></i></div>
+                        <div>
+                            <div class="file-name">Stage-Plan Bühnentechnik</div>
+                            <div class="file-desc">PDF · Technischer Rider · Bühnenaufbau und Anforderungen</div>
+                        </div>
+                        <a href="docs/stage-plan.pdf" download class="dl-btn"><i data-lucide="download" width="12" height="12"></i> PDF</a>
+                    </div>
                 </div>
             </div>
 
@@ -594,20 +935,33 @@
         try { lucide.createIcons(); } catch(e) {}
         document.getElementById('year').textContent = new Date().getFullYear();
 
-        document.querySelectorAll('.cat-tab').forEach(tab => {
+        // Main tabs
+        document.querySelectorAll('.main-tab').forEach(tab => {
             tab.addEventListener('click', () => {
-                document.querySelectorAll('.cat-tab').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.main-tab').forEach(t => t.classList.remove('active'));
                 document.querySelectorAll('.dl-section').forEach(s => s.classList.remove('visible'));
                 tab.classList.add('active');
                 document.getElementById(tab.dataset.target).classList.add('visible');
             });
         });
 
-        document.querySelectorAll('.photo-thumb-overlay').forEach(overlay => {
-            overlay.closest('.photo-card').addEventListener('click', function(e) {
+        // Photo sub-filters
+        document.querySelectorAll('.sub-filter').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.sub-filter').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                const group = btn.dataset.group;
+                document.querySelectorAll('.photo-card').forEach(card => {
+                    card.classList.toggle('hidden', group !== 'all' && card.dataset.group !== group);
+                });
+            });
+        });
+
+        // Click card to download
+        document.querySelectorAll('.photo-card').forEach(card => {
+            card.addEventListener('click', e => {
                 if (e.target.closest('.dl-btn')) return;
-                const link = this.querySelector('.dl-btn');
-                if (link) link.click();
+                card.querySelector('.dl-btn')?.click();
             });
         });
     </script>
