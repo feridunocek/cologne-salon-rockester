@@ -596,6 +596,56 @@
         .booking-cta-text h3 { font-family: var(--font-display); font-size: 2rem; }
         .booking-cta-text p { color: var(--text-muted); font-style: italic; margin-top: 0.5rem; }
 
+        /* ─── Galerie (Live) ─────────────────────────────────────────── */
+        .gallery { background: var(--bg); position: relative; overflow: hidden; padding-bottom: var(--section-padding); }
+        .gallery-header { margin-bottom: 3rem; text-align: center; }
+        .gallery-header h2 { margin-bottom: 1rem; }
+        .gallery-carousel-wrap { position: relative; max-width: var(--container-max); margin: 0 auto; padding: 0 1.2rem; }
+        .gallery-carousel {
+            display: flex; gap: 1.5rem;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+            -webkit-overflow-scrolling: touch;
+            padding-bottom: 1rem;
+        }
+        .gallery-carousel::-webkit-scrollbar { display: none; }
+        .gallery-item {
+            flex: 0 0 calc(33.333% - 1rem);
+            min-width: 280px;
+            scroll-snap-align: start;
+            border: 1px solid var(--border);
+            aspect-ratio: 4/3;
+            overflow: hidden;
+            position: relative;
+        }
+        .gallery-item img {
+            width: 100%; height: 100%; object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        .gallery-item:hover img { transform: scale(1.05); }
+        .gallery-controls {
+            display: flex; justify-content: center; gap: 1rem; margin-top: 2rem;
+        }
+        .gallery-btn {
+            width: 44px; height: 44px;
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text);
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer; transition: all 0.3s ease;
+        }
+        .gallery-btn:hover {
+            border-color: var(--accent); color: var(--accent); background: rgba(201, 168, 76, 0.08);
+        }
+        @media (max-width: 960px) {
+            .gallery-item { flex: 0 0 calc(50% - 0.75rem); }
+        }
+        @media (max-width: 600px) {
+            .gallery-item { flex: 0 0 100%; }
+        }
+
         /* ─── Kontakt ────────────────────────────────────────────────── */
         .contact { background: var(--card); position: relative; overflow: hidden; }
         .contact-inner { position: relative; z-index: 1; }
@@ -1102,6 +1152,32 @@
         </div>
     </section>
 
+    <!-- ─── Galerie ───────────────────────────────────────────────────── -->
+    <section class="gallery" id="galerie">
+        <div class="gallery-header reveal">
+            <div class="section-label">Live</div>
+            <h2>Momente auf der Bühne</h2>
+        </div>
+        <div class="gallery-carousel-wrap reveal">
+            <div class="gallery-carousel" id="galleryCarousel">
+                <div class="gallery-item"><img src="images/live/Cologne Salon Rockester live V2.jpg" alt="Live Moment" loading="lazy"></div>
+                <div class="gallery-item"><img src="images/live/CSO live.jpg" alt="Live Moment" loading="lazy"></div>
+                <div class="gallery-item"><img src="images/live/Detlef live.jpg" alt="Detlef Live" loading="lazy"></div>
+                <div class="gallery-item"><img src="images/live/Rainer live.jpg" alt="Rainer Live" loading="lazy"></div>
+                <div class="gallery-item"><img src="images/live/Claudius live.jpg" alt="Claudius Live" loading="lazy"></div>
+                <div class="gallery-item"><img src="images/live/Dieter live.jpg" alt="Dieter Live" loading="lazy"></div>
+                <div class="gallery-item"><img src="images/live/Freddy live.jpeg" alt="Freddy Live" loading="lazy"></div>
+                <div class="gallery-item"><img src="images/live/Michael live.jpg" alt="Michael Live" loading="lazy"></div>
+                <div class="gallery-item"><img src="images/live/Michael+Freddy live.jpg" alt="Michael und Freddy Live" loading="lazy"></div>
+                <div class="gallery-item"><img src="images/live/Gastsängerin Stella Tonon.jpeg" alt="Gastsängerin Stella Tonon" loading="lazy"></div>
+            </div>
+            <div class="gallery-controls">
+                <button class="gallery-btn" id="galleryPrev" aria-label="Zurück"><i data-lucide="chevron-left" width="20" height="20"></i></button>
+                <button class="gallery-btn" id="galleryNext" aria-label="Weiter"><i data-lucide="chevron-right" width="20" height="20"></i></button>
+            </div>
+        </div>
+    </section>
+
     <!-- ─── Kontakt ───────────────────────────────────────────────────── -->
     <section class="contact" id="contact">
         <div class="contact-inner container">
@@ -1120,6 +1196,7 @@
                                 <div class="contact-card-label">Booking</div>
                                 <div class="contact-card-name">Gerd Schank</div>
                                 <div class="contact-card-detail"><a href="tel:015563961758">0155 / 639 617 58</a></div>
+                                <div class="contact-card-detail"><a href="mailto:gerd.schank.23@gmail.com">gerd.schank.23@gmail.com</a></div>
                             </div>
                         </div>
                         <div class="contact-card">
@@ -1385,6 +1462,26 @@
                 document.body.style.overflow = '';
             });
         });
+
+        // ─── Galerie Carousel ─────────────────────────────────────────
+        const galleryCarousel = document.getElementById('galleryCarousel');
+        const galleryPrev = document.getElementById('galleryPrev');
+        const galleryNext = document.getElementById('galleryNext');
+
+        if(galleryCarousel && galleryPrev && galleryNext) {
+            const scrollAmount = () => {
+                const item = galleryCarousel.querySelector('.gallery-item');
+                return item ? item.offsetWidth + 24 : 300; // 24px is gap (1.5rem)
+            };
+
+            galleryPrev.addEventListener('click', () => {
+                galleryCarousel.scrollBy({ left: -scrollAmount(), behavior: 'smooth' });
+            });
+
+            galleryNext.addEventListener('click', () => {
+                galleryCarousel.scrollBy({ left: scrollAmount(), behavior: 'smooth' });
+            });
+        }
     </script>
 </body>
 </html>
