@@ -619,6 +619,7 @@
             aspect-ratio: 4/3;
             overflow: hidden;
             position: relative;
+            cursor: pointer;
         }
         .gallery-item img {
             width: 100%; height: 100%; object-fit: cover;
@@ -644,6 +645,62 @@
         }
         @media (max-width: 600px) {
             .gallery-item { flex: 0 0 100%; }
+        }
+
+        /* ─── Lightbox ───────────────────────────────────────────────── */
+        .lightbox {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(13, 10, 8, 0.95);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s ease;
+        }
+        .lightbox.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+        .lightbox-content {
+            position: relative;
+            max-width: 90vw;
+            max-height: 90vh;
+        }
+        .lightbox-img {
+            max-width: 100%;
+            max-height: 90vh;
+            object-fit: contain;
+            border: 1px solid var(--border);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+            display: block;
+        }
+        .lightbox-close {
+            position: absolute;
+            top: -50px; right: 0;
+            background: transparent; border: none; color: var(--text);
+            cursor: pointer; transition: color 0.3s;
+        }
+        .lightbox-close:hover { color: var(--accent); }
+        .lightbox-nav {
+            position: absolute;
+            top: 50%; transform: translateY(-50%);
+            background: rgba(28, 22, 16, 0.8);
+            border: 1px solid var(--border);
+            color: var(--text);
+            width: 44px; height: 44px;
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer; transition: all 0.3s;
+        }
+        .lightbox-nav:hover { background: var(--accent); color: var(--bg); }
+        .lightbox-prev { left: -60px; }
+        .lightbox-next { right: -60px; }
+        @media (max-width: 960px) {
+            .lightbox-prev { left: 10px; }
+            .lightbox-next { right: 10px; }
+            .lightbox-close { top: 10px; right: 10px; z-index: 10; background: rgba(0,0,0,0.5); border-radius: 50%; width: 36px; height: 36px; }
         }
 
         /* ─── Kontakt ────────────────────────────────────────────────── */
@@ -1160,16 +1217,16 @@
         </div>
         <div class="gallery-carousel-wrap reveal">
             <div class="gallery-carousel" id="galleryCarousel">
-                <div class="gallery-item"><img src="images/live/Cologne Salon Rockester live V2.jpg" alt="Live Moment" loading="lazy"></div>
-                <div class="gallery-item"><img src="images/live/CSO live.jpg" alt="Live Moment" loading="lazy"></div>
-                <div class="gallery-item"><img src="images/live/Detlef live.jpg" alt="Detlef Live" loading="lazy"></div>
-                <div class="gallery-item"><img src="images/live/Rainer live.jpg" alt="Rainer Live" loading="lazy"></div>
-                <div class="gallery-item"><img src="images/live/Claudius live.jpg" alt="Claudius Live" loading="lazy"></div>
-                <div class="gallery-item"><img src="images/live/Dieter live.jpg" alt="Dieter Live" loading="lazy"></div>
-                <div class="gallery-item"><img src="images/live/Freddy live.jpeg" alt="Freddy Live" loading="lazy"></div>
-                <div class="gallery-item"><img src="images/live/Michael live.jpg" alt="Michael Live" loading="lazy"></div>
-                <div class="gallery-item"><img src="images/live/Michael+Freddy live.jpg" alt="Michael und Freddy Live" loading="lazy"></div>
-                <div class="gallery-item"><img src="images/live/Gastsängerin Stella Tonon.jpeg" alt="Gastsängerin Stella Tonon" loading="lazy"></div>
+                <div class="gallery-item"><img src="images/live/cologne-salon-rockester-live-v2.jpg" alt="Live Moment" loading="lazy"></div>
+                <div class="gallery-item"><img src="images/live/cso-live.jpg" alt="Live Moment" loading="lazy"></div>
+                <div class="gallery-item"><img src="images/live/detlef-live.jpg" alt="Detlef Live" loading="lazy"></div>
+                <div class="gallery-item"><img src="images/live/rainer-live.jpg" alt="Rainer Live" loading="lazy"></div>
+                <div class="gallery-item"><img src="images/live/claudius-live.jpg" alt="Claudius Live" loading="lazy"></div>
+                <div class="gallery-item"><img src="images/live/dieter-live.jpg" alt="Dieter Live" loading="lazy"></div>
+                <div class="gallery-item"><img src="images/live/freddy-live.jpeg" alt="Freddy Live" loading="lazy"></div>
+                <div class="gallery-item"><img src="images/live/michael-live.jpg" alt="Michael Live" loading="lazy"></div>
+                <div class="gallery-item"><img src="images/live/michael-freddy-live.jpg" alt="Michael und Freddy Live" loading="lazy"></div>
+                <div class="gallery-item"><img src="images/live/gastsaengerin-stella-tonon.jpeg" alt="Gastsängerin Stella Tonon" loading="lazy"></div>
             </div>
             <div class="gallery-controls">
                 <button class="gallery-btn" id="galleryPrev" aria-label="Zurück"><i data-lucide="chevron-left" width="20" height="20"></i></button>
@@ -1177,6 +1234,16 @@
             </div>
         </div>
     </section>
+
+    <!-- ─── Lightbox ──────────────────────────────────────────────────── -->
+    <div class="lightbox" id="lightbox">
+        <div class="lightbox-content">
+            <button class="lightbox-close" id="lightboxClose" aria-label="Schließen"><i data-lucide="x" width="24" height="24"></i></button>
+            <img class="lightbox-img" id="lightboxImg" src="" alt="Große Ansicht">
+            <button class="lightbox-nav lightbox-prev" id="lightboxPrev" aria-label="Zurück"><i data-lucide="chevron-left" width="24" height="24"></i></button>
+            <button class="lightbox-nav lightbox-next" id="lightboxNext" aria-label="Weiter"><i data-lucide="chevron-right" width="24" height="24"></i></button>
+        </div>
+    </div>
 
     <!-- ─── Kontakt ───────────────────────────────────────────────────── -->
     <section class="contact" id="contact">
@@ -1482,6 +1549,66 @@
                 galleryCarousel.scrollBy({ left: scrollAmount(), behavior: 'smooth' });
             });
         }
+
+        // ─── Lightbox ─────────────────────────────────────────────────
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightboxImg');
+        const lightboxClose = document.getElementById('lightboxClose');
+        const lightboxPrev = document.getElementById('lightboxPrev');
+        const lightboxNext = document.getElementById('lightboxNext');
+        const galleryItems = document.querySelectorAll('.gallery-item img');
+        
+        let currentImageIndex = 0;
+        let imagesSrc = [];
+        if (galleryItems.length > 0) {
+            imagesSrc = Array.from(galleryItems).map(img => img.src);
+        }
+
+        function openLightbox(index) {
+            currentImageIndex = index;
+            lightboxImg.src = imagesSrc[currentImageIndex];
+            lightbox.classList.add('active');
+            document.body.style.overflow = 'hidden';
+            
+            // Re-render lucide icons if they were dynamically added
+            try { lucide.createIcons(); } catch(e) {}
+        }
+
+        function closeLightbox() {
+            lightbox.classList.remove('active');
+            document.body.style.overflow = '';
+            setTimeout(() => { lightboxImg.src = ''; }, 400); // clear after transition
+        }
+
+        function prevImage(e) {
+            if(e) e.stopPropagation();
+            currentImageIndex = (currentImageIndex - 1 + imagesSrc.length) % imagesSrc.length;
+            lightboxImg.src = imagesSrc[currentImageIndex];
+        }
+
+        function nextImage(e) {
+            if(e) e.stopPropagation();
+            currentImageIndex = (currentImageIndex + 1) % imagesSrc.length;
+            lightboxImg.src = imagesSrc[currentImageIndex];
+        }
+
+        galleryItems.forEach((img, index) => {
+            img.parentElement.addEventListener('click', () => openLightbox(index));
+        });
+
+        if(lightboxClose) lightboxClose.addEventListener('click', closeLightbox);
+        if(lightboxPrev) lightboxPrev.addEventListener('click', prevImage);
+        if(lightboxNext) lightboxNext.addEventListener('click', nextImage);
+        if(lightbox) lightbox.addEventListener('click', (e) => {
+            if (e.target === lightbox) closeLightbox();
+        });
+        
+        document.addEventListener('keydown', (e) => {
+            if (!lightbox || !lightbox.classList.contains('active')) return;
+            if (e.key === 'Escape') closeLightbox();
+            if (e.key === 'ArrowLeft') prevImage();
+            if (e.key === 'ArrowRight') nextImage();
+        });
     </script>
 </body>
 </html>
