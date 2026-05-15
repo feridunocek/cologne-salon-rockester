@@ -245,19 +245,26 @@
             .footer-inner { flex-direction: column; align-items: flex-start; gap: 1.2rem; }
             
             .tabs {
-                display: grid;
-                grid-template-columns: 1fr 1fr;
+                display: flex;
+                flex-wrap: wrap;
+                gap: 0.6rem;
+                justify-content: center;
+                padding: 1rem 0 0.5rem 0;
             }
             .tab {
-                padding: 0.9rem 0.5rem;
-                font-size: 0.75rem;
+                padding: 0.6rem 1rem;
+                font-size: 0.85rem;
                 letter-spacing: 0.15em;
-                white-space: normal;
-                line-height: 1.2;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                text-align: center;
+                white-space: nowrap;
+                border: 1px solid var(--border);
+                border-radius: 30px;
+                margin-bottom: 0;
+                line-height: 1;
+            }
+            .tab.active {
+                background: var(--accent);
+                color: var(--bg);
+                border-color: var(--accent);
             }
         }
     </style>
@@ -720,14 +727,6 @@
                             <div class="file-desc">PDF · Technischer Rider · Bühnenaufbau</div>
                         </div>
                         <a href="docs/cso-stage-plan-buehnentechnik.pdf" download class="dl-btn"><i data-lucide="download" width="12" height="12"></i> PDF</a>
-                    </div>
-                    <div class="file-row">
-                        <div class="file-icon"><i data-lucide="layout" width="20" height="20"></i></div>
-                        <div>
-                            <div class="file-name">Allgemeiner Stage-Plan</div>
-                            <div class="file-desc">PDF · Technischer Rider</div>
-                        </div>
-                        <a href="docs/stage-plan.pdf" download class="dl-btn"><i data-lucide="download" width="12" height="12"></i> PDF</a>
                     </div>
                 </div>
             </div>
