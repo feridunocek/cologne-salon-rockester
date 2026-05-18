@@ -342,14 +342,14 @@
             width: 800px;
             max-width: 70vw;
             z-index: 0;
-            opacity: 0.5;
+            opacity: 0.15;
             pointer-events: none;
-            mix-blend-mode: overlay;
+            mix-blend-mode: normal;
         }
         .about-bg-logo img {
             width: 100%;
             height: auto;
-            filter: grayscale(100%) contrast(150%);
+            filter: contrast(0.5);
         }
         .about-grid {
             position: relative;
@@ -366,15 +366,12 @@
             width: 100%; height: auto;
             display: block;
         }
-        .about-image-wrap::after {
-            content: '';
-            position: absolute; inset: 0;
-            border: 1px solid var(--border);
-        }
         .about-frame {
             position: absolute;
-            bottom: -1rem; right: -1rem;
-            width: 80%; height: 80%;
+            bottom: 4rem;
+            right: 0rem;
+            width: 92%;
+            height: 72%;
             border: 1px solid var(--accent);
             z-index: -1;
         }
@@ -838,7 +835,6 @@
                 left: -100px;
                 width: 600px;
                 max-width: 90vw;
-                opacity: 0.6;
             }
             .about-grid, .contact-grid, .performances-header { grid-template-columns: 1fr; gap: 3rem; }
             .about-image-wrap { aspect-ratio: 16/9; }
@@ -859,7 +855,6 @@
                 top: 10%;
                 left: -60px;
                 width: 400px;
-                opacity: 0.7;
             }
             :root { --section-padding: clamp(3rem, 6vw, 6rem); }
             .container { padding: 0 1.2rem; }
