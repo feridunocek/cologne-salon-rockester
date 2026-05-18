@@ -62,17 +62,25 @@
             position: fixed;
             top: 0; left: 0; right: 0;
             z-index: 1000;
+            transition: background 0.4s, backdrop-filter 0.4s;
+        }
+        .nav-inner {
+            max-width: var(--container-max);
+            margin: 0 auto;
             padding: 0.8rem 2rem;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            transition: padding 0.4s, background 0.4s, backdrop-filter 0.4s;
+            width: 100%;
+            transition: padding 0.4s;
         }
         nav.scrolled {
-            padding: 0.6rem 2rem;
             background: rgba(13, 10, 8, 0.92);
             backdrop-filter: blur(16px);
             border-bottom: 1px solid var(--border);
+        }
+        nav.scrolled .nav-inner {
+            padding: 0.6rem 2rem;
         }
 
         .nav-logo { text-decoration: none; display: flex; align-items: center; }
@@ -269,7 +277,7 @@
             font-style: italic;
             color: var(--text);
             font-size: clamp(1rem, 1.5vw, 1.2rem);
-            max-width: 50ch;
+            max-width: 52ch;
             margin-bottom: 3rem;
             text-shadow: 0 2px 20px rgba(0,0,0,0.9);
         }
@@ -903,21 +911,23 @@
 
     <!-- ─── Navbar ────────────────────────────────────────────────────── -->
     <nav id="navbar">
-        <a href="#" class="nav-logo">
-            <img src="images/logo.png" alt="Cologne Salon Rockester Logo">
-        </a>
-        <ul class="nav-links">
-            <li><a href="#about">Über uns</a></li>
-            <li><a href="#repertoire">Repertoire</a></li>
-            <li><a href="#hoerproben">Hörproben</a></li>
-            <li><a href="#members">Besetzung</a></li>
-            <li><a href="#performances">Auftritte</a></li>
-            <li><a href="downloads.html">Downloads</a></li>
-            <li><a href="#contact">Kontakt</a></li>
-        </ul>
-        <a href="#contact" class="nav-cta btn-magnetic">Booking anfragen</a>
-        <div class="nav-hamburger" id="hamburger">
-            <span></span><span></span><span></span>
+        <div class="nav-inner">
+            <a href="#" class="nav-logo">
+                <img src="images/logo.png" alt="Cologne Salon Rockester Logo">
+            </a>
+            <ul class="nav-links">
+                <li><a href="#about">Über uns</a></li>
+                <li><a href="#repertoire">Repertoire</a></li>
+                <li><a href="#hoerproben">Hörproben</a></li>
+                <li><a href="#members">Besetzung</a></li>
+                <li><a href="#performances">Auftritte</a></li>
+                <li><a href="downloads.html">Downloads</a></li>
+                <li><a href="#contact">Kontakt</a></li>
+            </ul>
+            <a href="#contact" class="nav-cta btn-magnetic">Booking anfragen</a>
+            <div class="nav-hamburger" id="hamburger">
+                <span></span><span></span><span></span>
+            </div>
         </div>
     </nav>
 
@@ -928,7 +938,7 @@
             <div class="hero-eyebrow">Köln · Rock · 1920er–1950er</div>
             <h1>Rock trifft<br>die <em>goldene Ära.</em></h1>
             <p class="hero-sub">
-                Klassiker aus den 20er bis 50er Jahren <strong>im rockigen Stil der 70er</strong> <br>neu gedacht, neu gespielt, neu erlebt. Über 200 Jahre Bühnenerfahrung.
+                Klassiker aus den 20er bis 50er Jahren <strong>im rockigen Stil der 70er</strong> neu gedacht, neu gespielt, neu erlebt. Über 200 Jahre Bühnenerfahrung.
             </p>
             <div class="hero-actions">
                 <a href="#contact" class="btn btn-primary btn-magnetic">
