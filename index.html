@@ -242,6 +242,26 @@
             z-index: 2;
             pointer-events: none;
         }
+        /* Giant background logo texture */
+        .hero-bg-logo {
+            position: absolute;
+            top: 45%;
+            right: -15%;
+            transform: translateY(-50%) rotate(-5deg);
+            width: 110vw;
+            max-width: 1600px;
+            min-width: 800px;
+            z-index: 1; /* Below texture and content */
+            opacity: 0.12; /* Subtle watermark */
+            pointer-events: none;
+            mix-blend-mode: overlay;
+        }
+        .hero-bg-logo img {
+            width: 100%;
+            height: auto;
+            filter: grayscale(100%) contrast(150%);
+        }
+
         .hero-content {
             position: relative;
             z-index: 3;
@@ -894,6 +914,10 @@
 
     <!-- ─── Hero ──────────────────────────────────────────────────────── -->
     <section class="hero" id="hero">
+        <!-- Giant Asymmetric Background Logo -->
+        <div class="hero-bg-logo">
+            <img src="images/logo.png" alt="" aria-hidden="true">
+        </div>
         <div class="hero-tex"></div>
         <div class="container hero-content">
             <div class="hero-eyebrow">Köln · Rock · 1920er–1950er</div>
