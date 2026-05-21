@@ -7,9 +7,7 @@
     <meta name="description" content="Datenschutzerklärung der Cologne Salon Rockester gemäß DSGVO.">
     <meta name="robots" content="noindex, nofollow">
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="fonts/fonts.css">
 
     <style>
         :root {
@@ -417,7 +415,11 @@
                     <div class="footer-tagline">Rock trifft die goldene Ära · Köln</div>
                 </div>
                 <a href="index.html" class="footer-back">← Zurück zur Startseite</a>
-                <div class="footer-copy">© <span id="year"></span> Cologne Salon Rockester</div>
+                <div class="footer-copy">
+                    © <span id="year"></span> Cologne Salon Rockester
+                    <span style="margin-left:1.2rem;opacity:0.6;">·</span>
+                    <a href="#" class="csr-cookie-settings" style="margin-left:1.2rem;font-size:0.72rem;color:var(--text-muted);text-decoration:none;font-family:var(--font-display);letter-spacing:0.1em;text-transform:uppercase;transition:color 0.3s;" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--text-muted)'">Cookie-Einstellungen</a>
+                </div>
             </div>
         </div>
     </footer>
@@ -425,5 +427,6 @@
     <script>
         document.getElementById('year').textContent = new Date().getFullYear();
     </script>
+    <script src="js/cookies.js"></script>
 </body>
 </html>
