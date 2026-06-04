@@ -13,6 +13,16 @@
       "source": "/",
       "has": [
         { "type": "query", "key": "view", "value": "article" },
+        { "type": "query", "key": "id", "value": "4:impressum" },
+        { "type": "query", "key": "catid", "value": "2" }
+      ],
+      "destination": "/impressum.html",
+      "permanent": true
+    },
+    {
+      "source": "/",
+      "has": [
+        { "type": "query", "key": "view", "value": "article" },
         { "type": "query", "key": "id", "value": "5:datenschutzerklaerung" }
       ],
       "destination": "/datenschutz.html",
