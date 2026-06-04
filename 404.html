@@ -41,6 +41,18 @@
             transition: background 0.3s;
         }
         .btn:hover { background: rgba(201,168,76,0.1); }
+        .quick-links {
+            margin-top: 2rem; display: flex; flex-wrap: wrap;
+            gap: 0.6rem; justify-content: center;
+        }
+        .quick-link {
+            font-family: var(--font-display); font-size: 0.75rem;
+            letter-spacing: 0.15em; text-transform: uppercase;
+            color: var(--text-muted); text-decoration: none;
+            border: 1px solid var(--border); padding: 0.45rem 1rem;
+            transition: color 0.3s, border-color 0.3s;
+        }
+        .quick-link:hover { color: var(--accent); border-color: var(--accent); }
         .redirect-note {
             margin-top: 2rem; font-size: 0.78rem;
             color: var(--text-muted); font-style: italic;
@@ -50,13 +62,33 @@
 <body>
     <div class="wrap">
         <div class="code">404</div>
-        <h1>Seite nicht gefunden</h1>
-        <p>Diese Seite existiert nicht mehr. Du wirst in Kürze zur Startseite weitergeleitet.</p>
+        <h1 id="wit-heading">Seite nicht gefunden</h1>
+        <p id="wit-text">Diese Seite existiert nicht mehr. Du wirst in Kürze zur Startseite weitergeleitet.</p>
         <a href="/" class="btn">← Zur Startseite</a>
+        <div class="quick-links">
+            <a href="/#contact" class="quick-link">Booking</a>
+            <a href="/#repertoire" class="quick-link">Repertoire</a>
+            <a href="/downloads.html" class="quick-link">Downloads</a>
+            <a href="/docs/pressetext.pdf" class="quick-link">Pressetext</a>
+            <a href="/impressum.html" class="quick-link">Impressum</a>
+        </div>
         <p class="redirect-note" id="countdown">Weiterleitung in 5 Sekunden…</p>
     </div>
 
     <script>
+        /* Random wit on each load */
+        (function () {
+            var lines = [
+                { h: 'Diese Seite steht nicht auf der Setlist.', p: 'Diese Seite hat sich aus dem Programm verabschiedet — aber die Show geht weiter.' },
+                { h: 'Diese Seite hat die Band verlassen.', p: 'Manche Noten gehören einfach nicht zur Setlist.' },
+                { h: 'Falsche Bühne.', p: 'Hier spielt heute Nacht niemand. Vielleicht war die Seite nie gebucht.' },
+                { h: 'Diese Seite ist abgespielt.', p: 'Wie eine alte Schallplatte, die keiner mehr findet — aber die Musik spielt weiter.' }
+            ];
+            var pick = lines[Math.floor(Math.random() * lines.length)];
+            document.getElementById('wit-heading').textContent = pick.h;
+            document.getElementById('wit-text').textContent = pick.p;
+        })();
+
         /* Smart redirect based on old Joomla query strings */
         (function () {
             var params = new URLSearchParams(window.location.search);
